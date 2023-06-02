@@ -2,17 +2,53 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
     previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
+}
+
+// declare all the userTypes i.e players etc
+enum UserType {
+    ADMIN
+    PLAYER
+    TURF_OWNER
+    VENDOR
+}
+
+enum Gender {
+    MALE
+    FEMALE
+}
+
+// enum PlayerPositions {
+//     GOALKEEPER
+//     RIGHT_FULLBACK
+//     LEFT_FULLBACK
+//     CENTER_BACK
+//     ATTACKING_MIDFIELDER
+//     DEFENSIVE_MIDFIELDER
+//     RIGHT_MIDFIELDER
+//     LEFT_MIDFIELDER
+//     STRIKER
+//     LEFT_WINGER
+//     RIGHT_WINGER
+// }
+enum DayOfWeek {
+    MONDAY
+    TUESDAY
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
 }
 
 model Example {
@@ -28,12 +64,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -49,13 +85,196 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    id              String            @id @default(cuid())
+    username        String            @unique
+    phoneNumber     String            @db.VarChar(20)
+    firstname       String?
+    lastname        String?
+    userType        UserType
+    email           String?           @unique
+    password        String?
+    emailVerified   DateTime?
+    location        String?
+    image           String?
+    playerId        String?           @unique
+    turfManagerId   String?           @unique
+    adminId         String?           @unique
+    vendorId        String?           @unique
+    accounts        Account[]
+    sessions        Session[]
+    player          Player?
+    createdAt       DateTime          @default(now())
+    Turf_Manager    Turf_Manager?
+    Vendor          Vendor?
+    Admin           Admin?
+    Inventory_Audit Inventory_Audit[]
+
+    // make sure no user has same user role and tyype id
+    @@unique([userType, turfManagerId])
+    @@unique([userType, playerId])
+    @@unique([userType, adminId])
+    @@unique([userType, vendorId])
+}
+
+// The player user type model declaration 
+model Player {
+    id                       String                    @id @default(cuid())
+    userId                   String                    @unique
+    gender                   Gender
+    age                      Int? // the actual age
+    ageRangeId               String
+    playerPositionId1        Int?
+    playerPositionId2        Int?
+    playerPositionId3        Int?
+    ageRange                 AgeRange                  @relation(fields: [ageRangeId], references: [id])
+    user                     User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    playPosition1            PlayPosition?             @relation("PlayPosition1", fields: [playerPositionId1], references: [id])
+    playPosition2            PlayPosition?             @relation("PlayPosition2", fields: [playerPositionId2], references: [id])
+    playPosition3            PlayPosition?             @relation("PlayPosition3", fields: [playerPositionId3], references: [id])
+    createdAt                DateTime                  @default(now())
+    Assigned_Inventory_Items Assigned_Inventory_Item[]
+}
+
+model PlayPosition {
+    id       Int      @id @default(autoincrement())
+    position String   @unique
+    Players  Player[] @relation("PlayPosition1")
+    Players2 Player[] @relation("PlayPosition2")
+    Players3 Player[] @relation("PlayPosition3")
+}
+
+model AgeRange {
+    id      String   @id @default(cuid())
+    min     Int
+    max     Int
+    players Player[]
+}
+
+model Turf_Manager {
+    id                       String                    @id @default(cuid())
+    userId                   String                    @unique
+    user                     User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    turfs                    Turf[]
+    Assigned_Inventory_Items Assigned_Inventory_Item[]
+    Inventory_Items          Inventory_Item[]
+}
+
+model Turf {
+    id                       String                    @id @default(cuid())
+    name                     String                    @unique
+    description              String                    @db.Text
+    turf_ManagerId           String
+    street                   String                    @db.Text
+    stateId                  Int
+    turf_manager             Turf_Manager              @relation(fields: [turf_ManagerId], references: [id])
+    State                    State                     @relation(fields: [stateId], references: [id])
+    City                     City                      @relation(fields: [cityId], references: [id])
+    cityId                   Int
+    latitude                 Float?
+    longitude                Float?
+    pitchSizesId             Int[]
+    pitchSizes               PitchSize[]
+    facilitiesId             Int[]
+    facilities               Facility[]
+    images                   String[]
+    gameTimes                GameTime[]
+    gameTimesId              Int[]
+    price                    Decimal                   @db.Decimal(10, 2)
+    createdAt                DateTime                  @default(now())
+    inventory_items          Inventory_Item[]
+    Assigned_Inventory_Items Assigned_Inventory_Item[]
+
+    @@unique([latitude, longitude])
+}
+
+model Assigned_Inventory_Item {
+    id             String       @id @default(cuid())
+    playerId       String
+    Player         Player?      @relation(fields: [playerId], references: [userId]) // this here is the userId of the person that this item has been assigned to but it is called the playerId (only players can be assigned something)
+    turfId         String
+    Turf           Turf?        @relation(fields: [turfId], references: [id])
+    Turf_Manager   Turf_Manager @relation(fields: [turf_ManagerId], references: [userId]) // the assigner of the item
+    turf_ManagerId String
+    returned       Boolean
+    createdAt      DateTime     @default(now())
+    updatedAt      DateTime     @updatedAt
+}
+
+model Inventory_Item {
+    id       String  @id @default(cuid())
+    name     String
+    image    String?
+    quantity Int
+
+    Turf            Turf?             @relation(fields: [turfId], references: [id])
+    turfId          String?
+    createdBy       String
+    Turf_Manager    Turf_Manager      @relation(fields: [createdBy], references: [id]) // the person i.e. the turf manager that added this item to a turf
+    createdAt       DateTime          @default(now())
+    updatedAt       DateTime          @updatedAt
+    Inventory_Audit Inventory_Audit[]
+
+    @@unique([turfId, name])
+}
+
+model Inventory_Audit {
+    id               String         @id @default(cuid())
+    description      String         @db.Text
+    Inventory_Item   Inventory_Item @relation(fields: [inventory_ItemId], references: [id])
+    inventory_ItemId String
+    userId           String
+    User             User?          @relation(fields: [userId], references: [id]) // the user that carried out an action on the inventory
+    createdAt        DateTime       @default(now())
+}
+
+model GameTime {
+    id        Int       @id @default(autoincrement())
+    day       DayOfWeek
+    startTime DateTime
+    stoptTime DateTime
+    Turf      Turf[]
+    turfId    String?
+}
+
+model PitchSize {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    description String @db.Text
+    turfs       Turf[]
+}
+
+model Facility {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    description String @db.Text
+    turfs       Turf[]
+}
+
+model State {
+    id     Int    @id @default(autoincrement())
+    name   String @unique
+    cities City[]
+    turfs  Turf[]
+}
+
+model City {
+    id      Int    @id @default(autoincrement())
+    name    String @unique
+    stateId Int
+    state   State  @relation(fields: [stateId], references: [id])
+    turfs   Turf[]
+}
+
+model Vendor {
+    id     String @id @default(cuid())
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Admin {
+    id     String @id @default(cuid())
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
