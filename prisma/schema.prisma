@@ -23,9 +23,24 @@ enum UserType {
     VENDOR
 }
 
+enum DefaultTeams {
+    BLUE
+    YELLOW
+}
+
 enum Gender {
     MALE
     FEMALE
+}
+
+enum Privacy {
+    PUBLIC
+    PRIVATE
+}
+
+enum Ticket {
+    PAID
+    FREE
 }
 
 // enum PlayerPositions {
@@ -108,12 +123,16 @@ model User {
     Vendor          Vendor?
     Admin           Admin?
     Inventory_Audit Inventory_Audit[]
+    Game            Game[]
+    Event           Event[]
 
     // make sure no user has same user role and tyype id
     @@unique([userType, turfManagerId])
     @@unique([userType, playerId])
     @@unique([userType, adminId])
     @@unique([userType, vendorId])
+    @@unique([userType, phoneNumber])
+    @@unique([userType, email])
 }
 
 // The player user type model declaration 
@@ -133,6 +152,8 @@ model Player {
     playPosition3            PlayPosition?             @relation("PlayPosition3", fields: [playerPositionId3], references: [id])
     createdAt                DateTime                  @default(now())
     Assigned_Inventory_Items Assigned_Inventory_Item[]
+    Team                     Team?                     @relation(fields: [teamId], references: [id])
+    teamId                   String?
 }
 
 model PlayPosition {
@@ -148,6 +169,8 @@ model AgeRange {
     min     Int
     max     Int
     players Player[]
+    Game    Game[]
+    Event   Event[]
 }
 
 model Turf_Manager {
@@ -157,6 +180,8 @@ model Turf_Manager {
     turfs                    Turf[]
     Assigned_Inventory_Items Assigned_Inventory_Item[]
     Inventory_Items          Inventory_Item[]
+    Game                     Game[]
+    Event                    Event[]
 }
 
 model Turf {
@@ -183,6 +208,9 @@ model Turf {
     createdAt                DateTime                  @default(now())
     inventory_items          Inventory_Item[]
     Assigned_Inventory_Items Assigned_Inventory_Item[]
+    Games                    Game[]
+    Events                   Event[]
+    Turf_Transaction         Turf_Transaction[]
 
     @@unique([latitude, longitude])
 }
@@ -201,11 +229,10 @@ model Assigned_Inventory_Item {
 }
 
 model Inventory_Item {
-    id       String  @id @default(cuid())
-    name     String
-    image    String?
-    quantity Int
-
+    id              String            @id @default(cuid())
+    name            String
+    image           String?
+    quantity        Int
     Turf            Turf?             @relation(fields: [turfId], references: [id])
     turfId          String?
     createdBy       String
@@ -241,6 +268,7 @@ model PitchSize {
     name        String @unique
     description String @db.Text
     turfs       Turf[]
+    Game        Game[]
 }
 
 model Facility {
@@ -248,6 +276,89 @@ model Facility {
     name        String @unique
     description String @db.Text
     turfs       Turf[]
+}
+
+model Game_Tag {
+    id          Int     @id @default(autoincrement())
+    name        String
+    description String  @db.Text
+    Games       Game[]
+    Event       Event[]
+}
+
+model Game {
+    id             String       @id @default(cuid())
+    title          String
+    description    String       @db.Text
+    teamSizeId     Int
+    TeamSize       PitchSize    @relation(fields: [teamSizeId], references: [id])
+    time           DateTime
+    locationId     String
+    Turf           Turf         @relation(fields: [locationId], references: [id]) // the turf where the game will 
+    AgeRange       AgeRange     @relation(fields: [ageRangeId], references: [id])
+    ageRangeId     String[]
+    tags           Game_Tag[]
+    hostId         String
+    Host           User         @relation(fields: [hostId], references: [id]) // the Id of the user that owns this game
+    createdById    String // the id of the turf manager that created the game
+    CreatedBy      Turf_Manager @relation(fields: [createdById], references: [id])
+    privacy        Privacy
+    ticket         Ticket?
+    ticket_price   Decimal?     @db.Decimal(10, 2)
+    createdAt      DateTime     @default(now())
+    matchDetailsId String       @unique
+    MatchDetails   MatchDetails @relation(fields: [matchDetailsId], references: [id])
+
+    @@unique([locationId, teamSizeId, createdAt])
+}
+
+model Event {
+    id             String       @id @default(cuid())
+    title          String
+    description    String       @db.Text
+    time           DateTime
+    locationId     String
+    Turf           Turf         @relation(fields: [locationId], references: [id]) // the turf where the game will 
+    AgeRange       AgeRange     @relation(fields: [ageRangeId], references: [id])
+    ageRangeId     String[]
+    tags           Game_Tag[]
+    Gender         Gender
+    hostId         String
+    Host           User         @relation(fields: [hostId], references: [id]) // the Id of the user that owns this game
+    createdById    String // the id of the turf manager that created the game
+    CreatedBy      Turf_Manager @relation(fields: [createdById], references: [id])
+    privacy        Privacy
+    ticket         Ticket?
+    ticket_price   Decimal?     @db.Decimal(10, 2)
+    winning_prize  Decimal?     @db.Decimal(10, 2) //wining prize for the game
+    createdAt      DateTime     @default(now())
+    MatchDetails   MatchDetails @relation(fields: [matchDetailsId], references: [id])
+    matchDetailsId String       @unique
+
+    @@unique([locationId, createdAt])
+}
+
+model Team {
+    id          String   @id @default(cuid())
+    name        String   @unique
+    description String   @db.Text
+    Members     Player[]
+    createdAt   DateTime @default(now())
+}
+
+// the actual game/event details
+model MatchDetails {
+    id                String       @id @default(cuid())
+    gameId            String?      @unique
+    game              Game?
+    eventId           String?      @unique
+    event             Event?
+    firstTeamPlayers  Json //this will be an array of objects which will contain the playerID and position or just an array of strings which will be the players' id
+    secondTeamPlayers Json //same as above
+    Stats             Json
+    winningTeam       DefaultTeams
+    createdAt         DateTime     @default(now())
+    updatedAt         DateTime     @updatedAt
 }
 
 model State {
@@ -283,4 +394,10 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Turf_Transaction {
+    id     String @id @default(cuid())
+    turfId String
+    turf   Turf   @relation(fields: [turfId], references: [id])
 }
