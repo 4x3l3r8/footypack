@@ -66,6 +66,17 @@ enum DayOfWeek {
     SUNDAY
 }
 
+enum Status {
+    Pending
+    Successful
+    Completed
+}
+
+enum TransactionCategory {
+    Game
+    Item
+}
+
 model Example {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
@@ -106,6 +117,7 @@ model User {
     firstname       String?
     lastname        String?
     userType        UserType
+    verified        Boolean
     email           String?           @unique
     password        String?
     emailVerified   DateTime?
@@ -125,6 +137,7 @@ model User {
     Inventory_Audit Inventory_Audit[]
     Game            Game[]
     Event           Event[]
+    Order           Order[]
 
     // make sure no user has same user role and tyype id
     @@unique([userType, turfManagerId])
@@ -154,6 +167,9 @@ model Player {
     Assigned_Inventory_Items Assigned_Inventory_Item[]
     Team                     Team?                     @relation(fields: [teamId], references: [id])
     teamId                   String?
+    Turf_Transaction         Turf_Transaction[]
+    walletId                 String                    @unique
+    Player_Wallet            Player_Wallet?
 }
 
 model PlayPosition {
@@ -296,7 +312,7 @@ model Game {
     locationId     String
     Turf           Turf         @relation(fields: [locationId], references: [id]) // the turf where the game will 
     AgeRange       AgeRange     @relation(fields: [ageRangeId], references: [id])
-    ageRangeId     String[]
+    ageRangeId     String
     tags           Game_Tag[]
     hostId         String
     Host           User         @relation(fields: [hostId], references: [id]) // the Id of the user that owns this game
@@ -320,7 +336,7 @@ model Event {
     locationId     String
     Turf           Turf         @relation(fields: [locationId], references: [id]) // the turf where the game will 
     AgeRange       AgeRange     @relation(fields: [ageRangeId], references: [id])
-    ageRangeId     String[]
+    ageRangeId     String
     tags           Game_Tag[]
     Gender         Gender
     hostId         String
@@ -366,6 +382,7 @@ model State {
     name   String @unique
     cities City[]
     turfs  Turf[]
+    Shop   Shop[]
 }
 
 model City {
@@ -374,12 +391,16 @@ model City {
     stateId Int
     state   State  @relation(fields: [stateId], references: [id])
     turfs   Turf[]
+    Shop    Shop[]
 }
 
 model Vendor {
-    id     String @id @default(cuid())
-    userId String @unique
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id     String  @id @default(cuid())
+    userId String  @unique
+    user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    shopId String? @unique
+    Shop   Shop?
+    Order  Order[]
 }
 
 model Admin {
@@ -397,7 +418,96 @@ model VerificationToken {
 }
 
 model Turf_Transaction {
-    id     String @id @default(cuid())
-    turfId String
-    turf   Turf   @relation(fields: [turfId], references: [id])
+    id                String   @id @default(cuid())
+    turfId            String
+    turf              Turf     @relation(fields: [turfId], references: [id])
+    transactionDetail String
+    amount            Decimal  @db.Decimal(10, 2)
+    channel           String
+    payerId           String
+    Payer             Player   @relation(fields: [payerId], references: [userId])
+    transactionStatus Status
+    transactionRef    String
+    createdAt         DateTime @default(now())
+}
+
+model Player_Wallet {
+    id                 String               @id @default(uuid())
+    playerId           String               @unique
+    Player             Player               @relation(fields: [playerId], references: [userId])
+    walletBalance      Decimal              @db.Decimal(10, 2)
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    Player_Transaction Player_Transaction[]
+}
+
+model Player_Transaction {
+    id                String        @id @default(uuid())
+    playerWalletId    String
+    wallet            Player_Wallet @relation(fields: [player_WalletId], references: [id])
+    player_WalletId   String
+    transactionRef    String
+    transactionDetail String
+    amount            Decimal       @db.Decimal(10, 2)
+    transactionStatus Status
+    createdAt         DateTime      @default(now())
+}
+
+model Shop {
+    id          String    @id @default(cuid())
+    name        String
+    description String
+    shopOwnerid String    @unique
+    Owner       Vendor    @relation(fields: [shopOwnerid], references: [userId])
+    street      String    @db.Text
+    State       State     @relation(fields: [stateId], references: [id])
+    stateId     Int
+    City        City      @relation(fields: [cityId], references: [id])
+    cityId      Int
+    latitude    Float?
+    longitude   Float?
+    Product     Product[]
+}
+
+model Product {
+    id               String             @id @default(cuid())
+    name             String
+    description      String             @db.Text
+    image            String?
+    quantity         Int
+    price            Decimal            @db.Decimal(10, 2)
+    options          Json
+    shopId           String
+    Shop             Shop               @relation(fields: [shopId], references: [id])
+    available        Boolean
+    createdAt        DateTime           @default(now())
+    Order            Order[]
+    Shop_Transaction Shop_Transaction[]
+
+    @@unique([name, shopId])
+}
+
+model Order {
+    id               String             @id @default(cuid())
+    buyerId          String
+    Buyer            User               @relation(fields: [buyerId], references: [id])
+    sellerId         String
+    Seller           Vendor             @relation(fields: [sellerId], references: [userId])
+    productId        String
+    Products         Product            @relation(fields: [productId], references: [id])
+    createdAt        DateTime           @default(now())
+    Shop_Transaction Shop_Transaction[]
+}
+
+model Shop_Transaction {
+    id                String   @id @default(uuid())
+    transactionDetail String
+    transactionRef    String
+    amount            Decimal  @db.Decimal(10, 2)
+    Channel           String
+    productId         String?
+    Product           Product? @relation(fields: [productId], references: [id])
+    orderId           String?
+    Order             Order?   @relation(fields: [orderId], references: [id])
+    createdAt         DateTime @default(now())
 }
