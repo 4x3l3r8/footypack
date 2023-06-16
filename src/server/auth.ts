@@ -5,7 +5,7 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 
@@ -19,6 +19,8 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      firstname: string;
+      lastname: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -41,15 +43,25 @@ export const authOptions: NextAuthOptions = {
       ...session,
       user: {
         ...session.user,
+        ...user,
         id: user.id,
       },
     }),
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      profile: (profile) => {
+        return {
+          id: profile.sub,
+          firstname: profile.given_name,
+          lastname: profile.family_name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
     }),
     /**
      * ...add more providers here.

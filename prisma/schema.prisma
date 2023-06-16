@@ -112,12 +112,12 @@ model Session {
 
 model User {
     id              String            @id @default(cuid())
-    username        String            @unique
-    phoneNumber     String            @db.VarChar(20)
+    username        String?            @unique
+    phoneNumber     String?            @db.VarChar(20)
     firstname       String?
     lastname        String?
-    userType        UserType
-    verified        Boolean
+    userType        UserType?
+    verified        Boolean?
     email           String?           @unique
     password        String?
     emailVerified   DateTime?
