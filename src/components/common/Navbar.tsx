@@ -3,6 +3,8 @@ import Link from "next/link";
 import { cn } from "~/lib/utils";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { api } from "~/utils/api";
 
 const navLinks = [
   {
@@ -27,6 +29,13 @@ export function NavBar({
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname();
+
+  const { data: sessionData } = useSession();
+
+  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
+    undefined, // no input
+    { enabled: sessionData?.user !== undefined }
+  );
   return (
     <div className={cn("flex h-16 w-full bg-[#EEF5E5] px-24")} {...props}>
       <Image
@@ -37,7 +46,10 @@ export function NavBar({
         className={cn("cursor-pointer")}
       />
       <nav
-        className={cn("flex items-center justify-center space-x-6 lg:space-x-9", className)}
+        className={cn(
+          "flex items-center justify-center space-x-6 lg:space-x-9",
+          className
+        )}
         {...props}
       >
         {navLinks.map((link) => {
@@ -56,8 +68,25 @@ export function NavBar({
         })}
       </nav>
       <div className="flex self-center justify-center ml-auto space-x-4 align-middle">
-        <Button variant={"outline"} className="px-7">Login</Button>
-        <Button>Get Started</Button>
+        {!sessionData ? (
+          <>
+            <Button
+              onClick={() => void signIn()}
+              variant={"outline"}
+              className="px-7"
+            >
+              Login
+            </Button>
+            <Button>Get Started</Button>
+          </>
+        ) : (
+          <div className="self-center">
+            Welcome {sessionData.user?.firstname} ,
+            <Button variant={"link"} onClick={() => void signOut()}>
+              Sign Out
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
