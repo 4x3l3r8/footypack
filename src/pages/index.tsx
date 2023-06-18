@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { NavBar } from "~/components/common";
-import { UpcomingGames } from "~/components/landingPage";
+import { CTAJumbotron, UpcomingGames } from "~/components/landingPage";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 
@@ -18,6 +18,7 @@ const Home: NextPage = () => {
       </Head>
       <NavBar className="mx-36" />
       <UpcomingGames />
+      <CTAJumbotron />
       <Button variant={"ghost"}>Burn</Button>
     </>
   );

@@ -77,6 +77,9 @@ export default {
         marquee: "marquee 40s linear infinite",
         marquee2: "marquee2 40s linear infinite",
       },
+      fontFamily: {
+        barlow: ["Barlow", "sans-serif"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

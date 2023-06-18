@@ -6,7 +6,7 @@ export interface IUpcomingGamesProps {}
 
 export function UpcomingGames(props: IUpcomingGamesProps) {
   return (
-    <div className="relative flex overflow-x-hidden overflow-y-hidden bg-primary text-primary-foreground">
+    <div className="relative font-barlow uppercase flex overflow-x-hidden overflow-y-hidden bg-primary text-primary-foreground">
       <div className="flex py-3 italic h-fit animate-marquee whitespace-nowrap">
         <Link href={"/"} className="flex items-center mx-4 space-x-2 text-xl">
           <Target className="mr-3 text-xl text-yellow-400" />
