@@ -79,6 +79,7 @@ export default {
       },
       fontFamily: {
         barlow: ["Barlow", "sans-serif"],
+        graphik: ['"Graphik Trial"', "sans-serif"],
       },
     },
   },
