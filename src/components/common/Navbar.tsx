@@ -37,7 +37,7 @@ export function NavBar({
     { enabled: sessionData?.user !== undefined }
   );
   return (
-    <div className={cn("flex h-16 w-full bg-[#EEF5E5] px-24")} {...props}>
+    <div className={cn("flex px-12 h-16 w-full bg-[#EEF5E5] md:px-24")} {...props}>
       <Image
         src={"/images/NavLogo.svg"}
         alt="FootyPack"

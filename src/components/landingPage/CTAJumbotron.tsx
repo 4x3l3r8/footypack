@@ -8,7 +8,7 @@ export interface ICTAJumbotronProps {}
 
 export function CTAJumbotron(props: ICTAJumbotronProps) {
   return (
-    <div className="min-h-fit">
+    <div className="min-h-fit bg-gradient-to-b from-[#EEF5E5]">
       <div className="max-w-screen flex min-h-fit flex-col items-center justify-center space-y-6 py-12">
         <div className="text-center">
           <h1 className="text-[50px] font-extrabold uppercase italic leading-[80px] text-black">
