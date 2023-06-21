@@ -82,7 +82,7 @@ export default function GameSessionCard({ className, ...props }: CardProps) {
         <Separator />
       </CardContent>
       <CardFooter className="flex flex-col space-y-0 text-start">
-        <p className="self-start text-sm text-muted-foreground">Game Time:</p>
+        {/* <p className="self-start text-sm text-muted-foreground">Game Time:</p> */}
         <div className="flex flex-col self-start">
           <span className="text-lg font-semibold">2:30pm</span>
           <span>12 May, 2023</span>

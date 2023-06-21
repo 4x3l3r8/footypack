@@ -59,7 +59,7 @@ export function ScheduledGameSessions(props: IScheduledGameSessionsProps) {
       </div>
 
       <div
-        className="no-scrollbar mt-5 flex space-x-5 overflow-x-auto px-10 py-5 ease-linear"
+        className="no-scrollbar mt-5 flex space-x-5 overflow-x-auto px-10 py-8 transition"
         ref={sessionsBarRef}
       >
         <GameSessionCard className="shrink-0 shadow-lg" />

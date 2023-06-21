@@ -4,6 +4,7 @@ import Head from "next/head";
 import { NavBar } from "~/components/common";
 import {
   CTAJumbotron,
+  GettingStarted,
   ScheduledGameSessions,
   UpcomingGames,
 } from "~/components/landingPage";
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
       <UpcomingGames />
       <CTAJumbotron />
       <ScheduledGameSessions />
+      <GettingStarted />
       <Button variant={"ghost"}>Burn</Button>
     </div>
   );
