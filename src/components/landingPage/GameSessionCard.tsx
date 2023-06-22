@@ -15,21 +15,6 @@ import {
 import { Separator } from "../ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-const notifications = [
-  {
-    title: "Your call has been confirmed.",
-    description: "1 hour ago",
-  },
-  {
-    title: "You have a new message!",
-    description: "1 hour ago",
-  },
-  {
-    title: "Your subscription is expiring soon!",
-    description: "2 hours ago",
-  },
-];
-
 type CardProps = React.ComponentProps<typeof Card>;
 
 export default function GameSessionCard({ className, ...props }: CardProps) {
@@ -51,7 +36,7 @@ export default function GameSessionCard({ className, ...props }: CardProps) {
         </Badge>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="flex">
+        <div className="flex justify-between">
           <div className="flex flex-col space-y-2">
             <CardTitle className="uppercase">
               teslim balogun sTADIUM Adekunle 101245, Lagos

@@ -8,6 +8,7 @@ import {
   ScheduledGameSessions,
   UpcomingGames,
 } from "~/components/landingPage";
+import TurfsNearby from "~/components/landingPage/TurfsNearby";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
       <CTAJumbotron />
       <ScheduledGameSessions />
       <GettingStarted />
+      <TurfsNearby />
       <Button variant={"ghost"}>Burn</Button>
     </div>
   );
