@@ -5,6 +5,7 @@ import { NavBar } from "~/components/common";
 import {
   CTAJumbotron,
   GettingStarted,
+  RegisterATurf,
   ScheduledGameSessions,
   UpcomingGames,
 } from "~/components/landingPage";
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
       <ScheduledGameSessions />
       <GettingStarted />
       <TurfsNearby />
+      <RegisterATurf />
       <Button variant={"ghost"}>Burn</Button>
     </div>
   );
