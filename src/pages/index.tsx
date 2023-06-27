@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
-import { NavBar } from "~/components/common";
+import { Footer, NavBar } from "~/components/common";
 import {
   CTAJumbotron,
   FootyFacts,
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       <RegisterATurf />
       <FootyFacts />
       <SearchBookPlay />
-      <Button variant={"ghost"}>Burn</Button>
+      <Footer />
     </div>
   );
 };
