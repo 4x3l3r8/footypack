@@ -10,6 +10,7 @@ import {
   ScheduledGameSessions,
   UpcomingGames,
 } from "~/components/landingPage";
+import SearchBookPlay from "~/components/landingPage/SearchBookPlay";
 import TurfsNearby from "~/components/landingPage/TurfsNearby";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
@@ -32,6 +33,7 @@ const Home: NextPage = () => {
       <TurfsNearby />
       <RegisterATurf />
       <FootyFacts />
+      <SearchBookPlay />
       <Button variant={"ghost"}>Burn</Button>
     </div>
   );
