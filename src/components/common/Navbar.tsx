@@ -21,7 +21,7 @@ const navLinks = [
   },
   {
     name: "Support",
-    href: "/",
+    href: "/support",
   },
 ];
 export function NavBar({
@@ -37,14 +37,21 @@ export function NavBar({
     { enabled: sessionData?.user !== undefined }
   );
   return (
-    <div className={cn("flex px-12 h-16 w-full bg-[#EEF5E5] md:px-24 sticky top-0 z-50")} {...props}>
-      <Image
-        src={"/images/NavLogo.svg"}
-        alt="FootyPack"
-        height={70}
-        width={70}
-        className={cn("cursor-pointer")}
-      />
+    <div
+      className={cn(
+        "sticky top-0 z-50 flex h-16 w-full bg-[#EEF5E5] px-12 md:px-24"
+      )}
+      {...props}
+    >
+      <Link className="my-auto" href={"/"}>
+        <Image
+          src={"/images/NavLogo.svg"}
+          alt="FootyPack"
+          height={70}
+          width={70}
+          className={cn("cursor-pointer")}
+        />
+      </Link>
       <nav
         className={cn(
           "flex items-center justify-center space-x-6 lg:space-x-9",
@@ -67,7 +74,7 @@ export function NavBar({
           );
         })}
       </nav>
-      <div className="flex self-center justify-center ml-auto space-x-4 align-middle">
+      <div className="ml-auto flex justify-center space-x-4 self-center align-middle">
         {!sessionData ? (
           <>
             <Button
