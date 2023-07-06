@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TurfCard } from "../common";
 import { Card } from "../ui/card";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/router";
 
 export interface ITurfsNearbyProps {}
 
@@ -25,6 +26,8 @@ export default function TurfsNearby(props: ITurfsNearbyProps) {
       }
     }, speed);
   };
+
+  const router = useRouter();
 
   return (
     <section className="my-32">
@@ -69,13 +72,16 @@ export default function TurfsNearby(props: ITurfsNearbyProps) {
         <TurfCard />
         <TurfCard />
         <TurfCard />
-        <Card className="flex h-[300px] w-[300px] shrink-0 cursor-pointer flex-col items-center justify-center space-y-6 font-barlow shadow-lg transition-all hover:scale-105">
+        <Card
+          onClick={() => router.push("/turfs")}
+          className="flex h-[300px] w-[300px] shrink-0 cursor-pointer flex-col items-center justify-center space-y-6 font-barlow shadow-lg transition-all hover:scale-105"
+        >
           <p className="text-center text-2xl font-black uppercase italic text-black">
             See more <br /> turfs
           </p>
           <Button
             variant={"outline"}
-            className="rounded-full border-black px-2 text-black hover:bg-gray-200"
+            className="rounded-full border-black px-2 text-black hover:bg-transparent"
             type="button"
           >
             <ArrowRight />

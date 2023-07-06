@@ -39,7 +39,9 @@ export function NavBar({
   return (
     <div
       className={cn(
-        "sticky top-0 z-50 flex h-16 w-full bg-[#EEF5E5] px-12 md:px-24"
+        `sticky top-0 z-50 flex h-16 w-full ${
+          pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"
+        } px-12 md:px-24`
       )}
       {...props}
     >
