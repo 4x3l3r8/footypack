@@ -11,17 +11,20 @@ import {
   CardTitle,
 } from "../ui/card";
 import { MapPin } from "lucide-react";
+import { useRouter } from "next/router";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
 export function TurfCard({ className, ...props }: CardProps) {
+  const router = useRouter();
   return (
     <Card
       className={cn(
-        "max-w-[300px] cursor-pointer border-none font-barlow shadow-none shrink-0",
+        "max-w-[300px] shrink-0 cursor-pointer border-none font-barlow shadow-none",
         className
       )}
       {...props}
+      onClick={() => router.push(`/turfs/${"1"}`)}
     >
       <CardHeader className="relative p-0 transition-all hover:scale-105">
         <Image

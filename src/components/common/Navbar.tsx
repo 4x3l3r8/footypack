@@ -62,7 +62,7 @@ export function NavBar({
         {...props}
       >
         {navLinks.map((link) => {
-          const isActive = pathname.startsWith(link.href);
+          const isActive = pathname?.startsWith(link.href);
           return (
             <Link
               href={link.href}

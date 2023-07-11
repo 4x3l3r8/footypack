@@ -21,7 +21,8 @@ const PopoverContent = React.forwardRef<
         .join(" ")
     }
     style={{
-      left: "10px !important",
+      // left: "10px !important",
+      right: "20px !important",
     }}
   >
     <PopoverPrimitive.Content
