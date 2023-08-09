@@ -2,7 +2,10 @@ import Head from "next/head";
 import { FC, ReactNode } from "react";
 import { Footer, NavBar } from "../common";
 
-export const Layout: FC<{ children: ReactNode }> = ({ children }) => {
+export const Layout: FC<{ children: ReactNode; rareOcassions?: boolean }> = ({
+  children,
+  rareOcassions,
+}) => {
   return (
     <>
       <Head>
@@ -11,7 +14,10 @@ export const Layout: FC<{ children: ReactNode }> = ({ children }) => {
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
       <NavBar className="md:mx-36" />
-      <div className="w-full px-16 py-5 min-h-[30vh]">{children}</div>
+      <div className={`w-full px-16 ${!rareOcassions && "py-5"} min-h-[30vh]`}>
+        {children}
+      </div>
+      {/* <div className={`min-h-[30vh] w-full px-16 py-5`}>{children}</div> */}
       <Footer />
     </>
   );

@@ -32,7 +32,7 @@ export function GettingStarted(props: IGettingStartedProps) {
         <Separator className="w-3/6" />
       </div>
       <div className="mx-auto mt-8 flex w-5/6 justify-between font-barlow lg:space-x-24 lg:px-44">
-        <Image
+        <Image           
           src={imgArray[stepCounter]}
           width={1080}
           className="hidden transition-all md:block md:h-[300px]  md:w-[300px] lg:h-[400px] lg:w-[400px]"
