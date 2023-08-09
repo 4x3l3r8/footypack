@@ -31,23 +31,24 @@ export function AboutTurfTab(props: IAboutTurfTabProps) {
           assumenda quasi ea id ut aliquam sit, quis excepturi.
         </p>
         <Separator />
-        <ul className="flex flex-col space-y-2">
-          <li className="flex">
-            <MapPin className="h-5 w-5" />
+        <ul className="flex flex-col space-y-4">
+          <li className="flex items-center space-x-2">
+            <MapPin className="mr-2 h-5 w-5" /> F4X5+XRM, Ojo 102101, Lagos{" "}
+            <Button variant={"link"} color="Blue">Show on map</Button>
           </li>
-          <li className="flex">
-            <Phone className="h-5 w-5" />
+          <li className="flex items-center space-x-2">
+            <Phone className="mr-2 h-5 w-5" />
           </li>
-          <li className="flex">
-            <Clock4 className="h-5 w-5" />
+          <li className="flex items-center space-x-2">
+            <Clock4 className="mr-2 h-5 w-5" />
           </li>
-          <li className="flex">
-            <Clock4 className="h-5 w-5" />
+          <li className="flex items-center space-x-2">
+            <Clock4 className="mr-2 h-5 w-5" />
           </li>
-          <li className="flex">
-            <Star className="h-5 w-5" />
+          <li className="flex items-center space-x-2">
+            <Star className="mr-2 h-5 w-5" />
           </li>
-          <li className="flex">
+          <li className="mr-2 flex items-center space-x-2">
             <svg
               height="64px"
               width="64px"
