@@ -15,7 +15,7 @@ const ContactUs = () => {
           </p>
 
         <div className="flex flex-col md:flex-row justify-center items-center md:items-end my-8">
-            <div className="flex flex-col text-start gap-2 mb-4">
+            <div className="flex flex-col text-start gap-2 mb-4 md:mb-0">
                 <label htmlFor="subEmail">Email address</label>
                 <input type="email" placeholder="e.g. name@domain.com" className="border border-primary -skew-x-12 p-4 w-full md:w-[600px] outline-primary md:mr-4" />
             </div>
