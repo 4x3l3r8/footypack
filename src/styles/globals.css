@@ -122,3 +122,8 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+
+.blog_hero {
+  background: url("../../public/images/Blog_Hero_Rectangle.png");
+}
