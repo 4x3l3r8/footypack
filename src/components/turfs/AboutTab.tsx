@@ -10,6 +10,10 @@ import {
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { BookingCard } from "./BookingGame";
+import BookNow from "./BookNow";
+import Image from "next/image";
+import TurfsNearby from "../landingPage/TurfsNearby";
+import Link from "next/link";
 
 export interface IAboutTurfTabProps {
   turfDetails?: any;
@@ -17,6 +21,7 @@ export interface IAboutTurfTabProps {
 
 export function AboutTurfTab(props: IAboutTurfTabProps) {
   return (
+    <div>
     <div className="flex w-full gap-3 ">
       <div className="mt-12 flex w-[52%] flex-col space-y-5">
         <p className="text-justify text-sm text-muted-foreground">
@@ -31,22 +36,33 @@ export function AboutTurfTab(props: IAboutTurfTabProps) {
           assumenda quasi ea id ut aliquam sit, quis excepturi.
         </p>
         <Separator />
-        <ul className="flex flex-col space-y-4">
+        <ul className="flex flex-col space-y-4 italic font-semibold">
           <li className="flex items-center space-x-2">
-            <MapPin className="mr-2 h-5 w-5" /> F4X5+XRM, Ojo 102101, Lagos{" "}
+            <MapPin className="mr-2 h-5 w-5" />
+            <span className="pr-2">F4X5+XRM, </span>
+            <span>Ojo 102101, Lagos</span>
             <Button variant={"link"} color="Blue">Show on map</Button>
           </li>
           <li className="flex items-center space-x-2">
             <Phone className="mr-2 h-5 w-5" />
+            <span className="pr-2">+234 903 346 6788 </span>
+            <span>+234 903 346 6788</span>
+          </li>
+          <li className="flex items-center space-x-2 italic">
+            <Clock4 className="mr-2 h-5 w-5" />
+            <span className="pr-2">Mon- sat </span>
+            <span>11:00am -09:00pm</span>
+            <Button variant={"link"} color="Blue">.open</Button>
           </li>
           <li className="flex items-center space-x-2">
             <Clock4 className="mr-2 h-5 w-5" />
-          </li>
-          <li className="flex items-center space-x-2">
-            <Clock4 className="mr-2 h-5 w-5" />
+            <span className="pr-2">SUN</span>
+            <span>08:00am -06:00pm</span>
           </li>
           <li className="flex items-center space-x-2">
             <Star className="mr-2 h-5 w-5" />
+            <span className="pr-2">3.7 (12 REVIEWS)</span>
+            <Button variant={"link"} color="Blue">show REVIEWS</Button>
           </li>
           <li className="mr-2 flex items-center space-x-2">
             <svg
@@ -79,13 +95,105 @@ export function AboutTurfTab(props: IAboutTurfTabProps) {
                 </g>
               </g>
             </svg>
+            <span>6 PITCHES</span>
           </li>
         </ul>
+        <hr />
+       <div>
+        <h1 className="uppercase font-semibold italic text-[#777]">Facilities</h1>
+    <div className="grid lg:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
+              >
+                <Image src='../images/jersey.svg' width={20} height={20} alt="jersey" />
+                <span className="rotate-0 skew-y-0 text-xl">Dressing Room</span>
+              </Button>
+
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
+              >
+                <Image src='../images/jersey.svg' width={20} height={20} alt="jersey" />
+                <span className="rotate-0 skew-y-0 text-xl">lounge</span>
+              </Button>
+
+
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
+              >
+                <Image src='../images/restroom.svg' width={20} height={20} alt="jersey" />
+                <span className="rotate-0 skew-y-0 text-xl">rest room</span>
+              </Button>
+
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
+              >
+                <Image src='../images/first-aid-kit.svg' width={20} height={20} alt="jersey" />
+                <span className="rotate-0 skew-y-0 text-xl">first aid</span>
+              </Button>
+
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
+              >
+                <Image src='../images/restroom.svg' width={20} height={20} alt="jersey" />
+                <span className="rotate-0 skew-y-0 text-xl">PARKING SPACE</span>
+              </Button>
+
+              <Button
+                size={"sm"}
+                variant={"outline"}
+                className="mb-0 w-fit bg-[#F8FFFD] rotate-[12.5deg] -skew-y-12 px-4 py-4"
+              >
+                <Image src='../images/jersey.svg' width={20} height={20} alt="jersey" />
+                <span className="rotate-0 skew-y-0 text-xl">sitting area</span>
+              </Button>
+
+              </div>
+       </div>
+
+       <hr />
+
       </div>
 
       <div className="mt-12 flex w-1/2 flex-col space-y-3">
-        <BookingCard />
+        <BookNow />
       </div>
     </div>
+
+<div className="w-[95%] mt-4">
+<div className="flex justify-between items-center mb-8">
+  <h1 className="text-[#777] italic font-semibold text-xl">LOCATION</h1>
+  <Button
+        size={"sm"}
+        variant={"outline"}
+        className="mb-0 w-fit underline border-[#1974EE] text-[#1974EE] rotate-[12.5deg] -skew-y-12 px-4 py-4"
+      >
+        <span className="rotate-0 skew-y-0 text-xl">GET DIRECTION</span>
+      </Button>
+</div>
+{/* Map component goes here  */}
+<h1>MAP GOES HERE</h1>
+<div className="border-2 rounded border-[#E0E0E0] p-4">
+ <div className="flex justify-between items-center">
+    <h1 className="font-bold italic text-2xl uppercase">EXPLORE OTHER turfs near you</h1>
+    <Link href='#' className="underline uppercase text-[#1974EE] font-semibold flex items-center gap-2 ">
+    View more
+    <Image src='../images/arrow.svg' width={20} height={20} alt="arrow right" />
+    </Link>
+ </div>
+</div>
+<TurfsNearby />
+
+</div>
+</div>
   );
 }
