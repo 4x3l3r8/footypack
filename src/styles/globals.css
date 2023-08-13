@@ -125,5 +125,9 @@
 
 
 .blog_hero {
-  background: url("../../public/images/Blog_Hero_Rectangle.png");
+  background: url("/images/Blog_Hero_Rectangle.png");
+}
+
+.blog_post_hero {
+  background: url("/images/BlogPost_Hero.png");
 }
