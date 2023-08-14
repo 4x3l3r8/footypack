@@ -135,3 +135,7 @@
 .blog_post_text p {
 @apply py-6 leading-6
 }
+
+.about p {
+  @apply py-3 text-lg leading-[40px] text-gray-500
+}
