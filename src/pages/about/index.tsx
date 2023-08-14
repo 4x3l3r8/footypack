@@ -13,6 +13,8 @@ const index = () => {
     <AboutHero />
     <AboutVideo />
 
+    oo
+
     <AboutDetails title={companyPara.title} paragraph={companyPara.paragraph} />
     <AboutDetails title={appPara.title} paragraph={appPara.paragraph} />
     <AboutDetails title={goalPara.title} paragraph={goalPara.paragraph} />
