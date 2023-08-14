@@ -1,13 +1,25 @@
-import React from 'react'
+import React from "react";
+import { Button } from "../ui/button";
+import { ArrowLeft } from "lucide-react";
+import BlogPostHeroTitle from "./BlogPostHeroTitle";
 
 const BlogPostHero = () => {
   return (
     <>
-    <div className="blog_post_hero flex h-[500px] flex-col md:flex-row md:items-end justify-between px-4 md:px-24 py-6">
+      <section className="blog_post_hero relative flex h-[500px] flex-col justify-between px-4 py-6 md:flex-row md:items-end md:px-24">
+        <Button
+          variant={"secondary"}
+          size={"sm"}
+          className="absolute top-3/4 rounded-none font-semibold"
+        >
+          <ArrowLeft />
+          Go Back
+        </Button>
         
-      </div>
+        <BlogPostHeroTitle />
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default BlogPostHero
+export default BlogPostHero;

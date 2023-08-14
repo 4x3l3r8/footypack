@@ -131,3 +131,7 @@
 .blog_post_hero {
   background: url("/images/BlogPost_Hero.png");
 }
+
+.blog_post_text p {
+@apply py-6 leading-6
+}
