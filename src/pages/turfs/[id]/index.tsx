@@ -5,11 +5,13 @@ import Link from "next/link";
 import { Carousel, Share } from "~/components/common";
 import { Layout } from "~/components/layouts";
 import { AboutTurfTab } from "~/components/turfs/AboutTab";
+import { Review } from "~/components/turfs/BookingGame/Review";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
 const SingleTurf: NextPage = () => {
+  const numberOfReviews = 8; // Number of times to repeat the Review component
   return (
     <Layout rareOcassions>
       <Card className="mb-4 rounded-t-none border-t-0">
@@ -22,6 +24,7 @@ const SingleTurf: NextPage = () => {
           </Button>
         </CardContent>
       </Card>
+
       <Card>
         <CardContent className="pt-4">
           <div className="flex justify-between">
@@ -43,6 +46,7 @@ const SingleTurf: NextPage = () => {
           </div>
 
           <Tabs defaultValue="0" className="w- w-full">
+
             <TabsList className="italics -pb-1 w-full justify-start gap-10 rounded-none border-b-2 bg-transparent font-bold transition-all">
               <TabsTrigger
                 className="rounded-none py-0 text-2xl font-medium italic data-[state=active]:border-b-4 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
@@ -63,11 +67,20 @@ const SingleTurf: NextPage = () => {
                 Games
               </TabsTrigger>
             </TabsList>
+
+{/* About tab content */}
             <TabsContent value="0" className="w-full transition-all">
               <AboutTurfTab />
             </TabsContent>
+
+{/* Reviews tab content */}
             <TabsContent value="1" className="w-full transition-all">
-              <div className="mt-12 flex flex-col space-y-3">
+              <div className='mx-10 grid lg:grid-cols-2 md:grid-cols-2 gap-4 mt-8'>
+            {Array.from({ length: numberOfReviews }).map((_, index) => (
+        <Review key={index} />
+      ))}
+      </div>
+              {/* <div className="mt-12 flex flex-col space-y-3">
                 <span className="text-lg font-medium uppercase italic">
                   Pick game date and time
                 </span>
@@ -83,8 +96,10 @@ const SingleTurf: NextPage = () => {
                 >
                   <span className="rotate-0 skew-y-0 text-xl">FIND TURFS</span>
                 </Button>
-              </div>
+              </div> */}
             </TabsContent>
+
+{/* Games tab content */}
             <TabsContent value="2" className=" w-full transition-all">
               <div className="mt-12 flex flex-col space-y-3">
                 <span className="text-lg font-medium uppercase italic">
@@ -105,6 +120,7 @@ const SingleTurf: NextPage = () => {
               </div>
             </TabsContent>
           </Tabs>
+
         </CardContent>
       </Card>
     </Layout>
