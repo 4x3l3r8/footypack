@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import Head from "next/head";
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import { Footer, NavBar } from "../common";
 
 export const Layout: FC<{ children: ReactNode; rareOcassions?: boolean }> = ({

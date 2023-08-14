@@ -49,8 +49,7 @@ export function NavBar({
   return (
     <div
       className={cn(
-        `sticky top-0 justify-between items-center z-50 flex h-16 w-full ${
-          pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"
+        `sticky top-0 justify-between items-center z-50 flex h-16 w-full ${pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"
         } px-4 md:px-24`
       )}
       {...props}
@@ -66,7 +65,7 @@ export function NavBar({
       </Link>
       <nav
         className={cn(
-          `flex items-center md:space-x-6 space-x-2 ${pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"} lg:space-x-9 absolute md:static flex-col md:flex-row top-[65px] space-y-6 p-4 overflow-hidden md:space-y-0 w-screen md:w-auto left-0 md:h-auto transition-all  ${!isNavOpen ? 'h-0 p-0' : 'h-[400px]'}`,
+          `flex items-center ml-6 md:space-x-6 space-x-2 ${pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"} lg:space-x-9 absolute md:static flex-col md:flex-row top-[65px] space-y-6 p-4 overflow-hidden md:space-y-0 w-screen md:w-auto left-0 md:h-auto transition-all  ${!isNavOpen ? 'h-0 p-0' : 'h-[400px]'}`,
           className
         )}
         {...props}
