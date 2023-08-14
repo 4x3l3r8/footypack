@@ -1,13 +1,14 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from 'next/link';
 
-const NavGetting = (props?: string) => {
-    const { data: sessionData } = useSession();
+const NavGetting = ({ extraStyle }: { extraStyle: string }) => {
+  const { data: sessionData } = useSession();
 
   return (
     <>
-        <div className={`ml-auto flex justify-center space-x-4 self-center align-middle ${props.extraStyle}`}>
+      <div className={`ml-auto flex justify-center space-x-4 self-center align-middle ${extraStyle}`}>
         {!sessionData ? (
           <>
             <Button
@@ -17,7 +18,9 @@ const NavGetting = (props?: string) => {
             >
               Login
             </Button>
-            <Button>Get Started</Button>
+            <Link href={'/onboarding'}>
+              <Button>Get Started</Button>
+            </Link>
           </>
         ) : (
           <div className="self-center">

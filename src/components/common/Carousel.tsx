@@ -1,21 +1,21 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext,
-  DotGroup,
-} from "pure-react-carousel";
-import "pure-react-carousel/dist/react-carousel.es.css";
 import field1 from "public/images/static/turf1.png";
 import field2 from "public/images/static/turf2.png";
 import field3 from "public/images/static/turf3.png";
 import field4 from "public/images/static/turf4.png";
-import { Button } from "../ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ButtonBack,
+  ButtonNext,
+  CarouselProvider,
+  Slide,
+  Slider
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
 
-export interface ICarouselProps {}
+export interface ICarouselProps {
+  data?: string
+}
 
 export function Carousel(props: ICarouselProps) {
   return (
@@ -36,7 +36,7 @@ export function Carousel(props: ICarouselProps) {
               height={1270}
               width={1270}
               alt="uol"
-              className="h-52"
+              className="h-52 w-full"
             />
           </Slide>
           <Slide className="h-fit" index={1}>
@@ -45,7 +45,7 @@ export function Carousel(props: ICarouselProps) {
               height={1270}
               width={1270}
               alt="uol"
-              className="h-52"
+              className="h-52 w-full"
             />
           </Slide>
           <Slide className="h-fit" index={2}>
@@ -54,7 +54,7 @@ export function Carousel(props: ICarouselProps) {
               height={1270}
               width={1270}
               alt="uol"
-              className="h-52"
+              className="h-52 w-full"
             />
           </Slide>
           <Slide className="h-fit" index={3}>
@@ -63,7 +63,7 @@ export function Carousel(props: ICarouselProps) {
               height={1270}
               width={1270}
               alt="uol"
-              className="h-52"
+              className="h-52 w-full"
             />
           </Slide>
         </Slider>

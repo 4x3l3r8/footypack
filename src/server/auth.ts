@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
@@ -47,10 +49,14 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    signIn: (params) => {
+      // console.log(params);
+      return false
+    }
   },
   adapter: PrismaAdapter(prisma),
   pages: {
-    signIn: "/auth/login",
+    signIn: "/auth/signup",
     newUser: "/onboarding",
   },
   providers: [
