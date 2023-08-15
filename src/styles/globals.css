@@ -123,3 +123,19 @@
   background-repeat: no-repeat;
 }
 
+
+.blog_hero {
+  background: url("/images/Blog_Hero_Rectangle.png");
+}
+
+.blog_post_hero {
+  background: url("/images/BlogPost_Hero.png");
+}
+
+.blog_post_text p {
+@apply py-6 leading-6
+}
+
+.about p {
+  @apply py-3 text-lg leading-[40px] text-gray-500
+}

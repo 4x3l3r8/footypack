@@ -6,6 +6,7 @@ import { Carousel, Share } from "~/components/common";
 import { Layout } from "~/components/layouts";
 import { AboutTurfTab } from "~/components/turfs/AboutTab";
 import { Review } from "~/components/turfs/BookingGame/Review";
+
 import { TurfGames } from "~/components/turfs/TurfGames";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
@@ -81,6 +82,24 @@ const SingleTurf: NextPage = () => {
         <Review key={index} />
       ))}
       </div>
+
+              {/* <div className="mt-12 flex flex-col space-y-3">
+                <span className="text-lg font-medium uppercase italic">
+                  Pick game date and time
+                </span>
+                <p className="text-justify text-lg text-muted-foreground">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
+                  enim repellat, saepe odio nesciunt libero rem quibusdam
+                  temporibus aspernatur tenetur facilis tempora voluptatibus
+                  tempore.
+                </p>
+                <Button
+                  size={"lg"}
+                  className="mb-0 mt-7 h-full w-fit rotate-[12.5deg] -skew-y-12 px-9 py-6"
+                >
+                  <span className="rotate-0 skew-y-0 text-xl">FIND TURFS</span>
+                </Button>
+              </div> */}
 
             </TabsContent>
 
