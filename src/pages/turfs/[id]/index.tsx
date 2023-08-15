@@ -6,6 +6,7 @@ import { Carousel, Share } from "~/components/common";
 import { Layout } from "~/components/layouts";
 import { AboutTurfTab } from "~/components/turfs/AboutTab";
 import { Review } from "~/components/turfs/BookingGame/Review";
+import { TurfGames } from "~/components/turfs/TurfGames";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
@@ -80,44 +81,40 @@ const SingleTurf: NextPage = () => {
         <Review key={index} />
       ))}
       </div>
-              {/* <div className="mt-12 flex flex-col space-y-3">
-                <span className="text-lg font-medium uppercase italic">
-                  Pick game date and time
-                </span>
-                <p className="text-justify text-lg text-muted-foreground">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                  enim repellat, saepe odio nesciunt libero rem quibusdam
-                  temporibus aspernatur tenetur facilis tempora voluptatibus
-                  tempore.
-                </p>
-                <Button
-                  size={"lg"}
-                  className="mb-0 mt-7 h-full w-fit rotate-[12.5deg] -skew-y-12 px-9 py-6"
-                >
-                  <span className="rotate-0 skew-y-0 text-xl">FIND TURFS</span>
-                </Button>
-              </div> */}
+
             </TabsContent>
 
 {/* Games tab content */}
             <TabsContent value="2" className=" w-full transition-all">
-              <div className="mt-12 flex flex-col space-y-3">
-                <span className="text-lg font-medium uppercase italic">
-                  Pay and get ticket
-                </span>
-                <p className="text-justify text-lg text-muted-foreground">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                  enim repellat, saepe odio nesciunt libero rem quibusdam
-                  temporibus aspernatur tenetur facilis tempora voluptatibus
-                  tempore.
-                </p>
-                <Button
-                  size={"lg"}
-                  className="mb-0 mt-7 h-full w-fit rotate-[12.5deg] -skew-y-12 px-9 py-6"
+              <div className=" flex items-center space-y-3 space-x-3">
+                  <button className="  text-xl text-white uppercase bg-[#006716] rotate-[12.5deg] px-6 py-4 -skew-y-12">
+                    <span className="rotate-0 skew-y-0"> upcoming</span>
+                   </button>
+                  <button className=" text-xl text-black uppercase bg-[#E0E0E0] rotate-[12.5deg] px-6 py-4 -skew-y-12">
+                    <span className="rotate-0 skew-y-0">completed</span>
+                    </button>
+                    </div>
+                    <div className='grid lg:grid-cols-4 md:grid-cols-4 grid-cols-4 gap-4'>
+                    {Array.from({ length: numberOfReviews }).map((_, index) => (
+        <TurfGames key={index} />
+      ))}
+      </div>
+
+                {/* <Button
+                  size={"default"}
+                  className="mb-0 mt-7 rounded-none h-full w-fit rotate-[12.5deg] -skew-y-12 px-9 py-6"
                 >
                   <span className="rotate-0 skew-y-0 text-xl">FIND TURFS</span>
                 </Button>
-              </div>
+
+                <Button
+                  size={"default"}
+                  className="mb-0  rounded-none h-full w-fit rotate-[12.5deg] -skew-y-12 px-9 py-6"
+                >
+                  <span className="rotate-0 skew-y-0 text-xl">FIND TURFS</span>
+                </Button> */}
+
+
             </TabsContent>
           </Tabs>
 
