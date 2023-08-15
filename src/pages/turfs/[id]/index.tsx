@@ -94,26 +94,11 @@ const SingleTurf: NextPage = () => {
                     <span className="rotate-0 skew-y-0">completed</span>
                     </button>
                     </div>
-                    <div className='grid lg:grid-cols-4 md:grid-cols-4 grid-cols-4 gap-4'>
+                    <div className='grid lg:grid-cols-4 md:grid-cols-4 grid-cols gap-4'>
                     {Array.from({ length: numberOfReviews }).map((_, index) => (
         <TurfGames key={index} />
       ))}
       </div>
-
-                {/* <Button
-                  size={"default"}
-                  className="mb-0 mt-7 rounded-none h-full w-fit rotate-[12.5deg] -skew-y-12 px-9 py-6"
-                >
-                  <span className="rotate-0 skew-y-0 text-xl">FIND TURFS</span>
-                </Button>
-
-                <Button
-                  size={"default"}
-                  className="mb-0  rounded-none h-full w-fit rotate-[12.5deg] -skew-y-12 px-9 py-6"
-                >
-                  <span className="rotate-0 skew-y-0 text-xl">FIND TURFS</span>
-                </Button> */}
-
 
             </TabsContent>
           </Tabs>
