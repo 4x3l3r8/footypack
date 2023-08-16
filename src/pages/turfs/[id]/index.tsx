@@ -1,6 +1,5 @@
-import { ChevronLeft, MapPin, ShareIcon } from "lucide-react";
+import { ChevronLeft, MapPin } from "lucide-react";
 import { type NextPage } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Carousel, Share } from "~/components/common";
 import { Layout } from "~/components/layouts";
@@ -70,18 +69,18 @@ const SingleTurf: NextPage = () => {
               </TabsTrigger>
             </TabsList>
 
-{/* About tab content */}
+            {/* About tab content */}
             <TabsContent value="0" className="w-full transition-all">
               <AboutTurfTab />
             </TabsContent>
 
-{/* Reviews tab content */}
+            {/* Reviews tab content */}
             <TabsContent value="1" className="w-full transition-all">
               <div className='mx-10 grid lg:grid-cols-2 md:grid-cols-2 gap-4 mt-8'>
-            {Array.from({ length: numberOfReviews }).map((_, index) => (
-        <Review key={index} />
-      ))}
-      </div>
+                {Array.from({ length: numberOfReviews }).map((_, index) => (
+                  <Review key={index} />
+                ))}
+              </div>
 
               {/* <div className="mt-12 flex flex-col space-y-3">
                 <span className="text-lg font-medium uppercase italic">
@@ -103,21 +102,21 @@ const SingleTurf: NextPage = () => {
 
             </TabsContent>
 
-{/* Games tab content */}
+            {/* Games tab content */}
             <TabsContent value="2" className=" w-full transition-all">
               <div className=" flex items-center space-y-3 space-x-3">
-                  <button className="  text-xl text-white uppercase bg-[#006716] rotate-[12.5deg] px-6 py-4 -skew-y-12">
-                    <span className="rotate-0 skew-y-0"> upcoming</span>
-                   </button>
-                  <button className=" text-xl text-black uppercase bg-[#E0E0E0] rotate-[12.5deg] px-6 py-4 -skew-y-12">
-                    <span className="rotate-0 skew-y-0">completed</span>
-                    </button>
-                    </div>
-                    <div className='grid lg:grid-cols-4 md:grid-cols-4 grid-cols gap-4'>
-                    {Array.from({ length: numberOfReviews }).map((_, index) => (
-        <TurfGames key={index} />
-      ))}
-      </div>
+                <button className="  text-xl text-white uppercase bg-[#006716] rotate-[12.5deg] px-6 py-4 -skew-y-12">
+                  <span className="rotate-0 skew-y-0"> upcoming</span>
+                </button>
+                <button className=" text-xl text-black uppercase bg-[#E0E0E0] rotate-[12.5deg] px-6 py-4 -skew-y-12">
+                  <span className="rotate-0 skew-y-0">completed</span>
+                </button>
+              </div>
+              <div className='grid lg:grid-cols-4 md:grid-cols-4 grid-cols gap-4'>
+                {Array.from({ length: numberOfReviews }).map((_, index) => (
+                  <TurfGames key={index} />
+                ))}
+              </div>
 
             </TabsContent>
           </Tabs>

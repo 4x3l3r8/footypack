@@ -16,10 +16,10 @@ type CardProps = React.ComponentProps<typeof Card>;
 
 export function TurfCard({ className, ...props }: CardProps) {
   return (
-    <Link href={`/turfs/${"1"}`}>
+    <Link className="contents" href={`/turfs/${"1"}`}>
       <Card
         className={cn(
-          "max-w-[300px] shrink-0 cursor-pointer border-none font-barlow shadow-none",
+          "max-w-[300px] shrink-0 mx-2 cursor-pointer border-none font-barlow shadow-none",
           className
         )}
         {...props}

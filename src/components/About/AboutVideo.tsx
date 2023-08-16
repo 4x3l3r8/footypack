@@ -5,7 +5,7 @@ const AboutVideo = () => {
   return (
     <>
     <section className="">
-        <Image className='object-fit' src={'/images/about_video_placeholder.png'} width={1440} height={500} alt='' />
+        <Image className='object-fit mx-auto' src={'/images/about_video_placeholder.png'} width={1440} height={500} alt='' />
     </section>
     </>
   )

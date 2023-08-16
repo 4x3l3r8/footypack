@@ -48,7 +48,7 @@ const SignUp = ({
                     key={provider.name}
                     className="rounded-none"
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    onClick={() => signIn(provider.id, { callbackUrl: "" })}
+                    onClick={() => signIn(provider.id, { callbackUrl: "/" })}
                   >
                     Sign in with {provider.name}
                   </Button>

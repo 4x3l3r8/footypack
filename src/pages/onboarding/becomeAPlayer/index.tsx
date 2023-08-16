@@ -1,30 +1,26 @@
-import { getCsrfToken, getProviders, signIn } from "next-auth/react";
-import Image from "next/image";
+import { getCsrfToken, getProviders } from "next-auth/react";
 // import Header from "../../components/header";
 import type {
     GetServerSidePropsContext,
     InferGetServerSidePropsType,
 } from "next";
-import { getServerAuthSession } from "~/server/auth";
-import { NavBar } from "~/components/common";
-import { Card, CardContent, CardHeader } from "~/components/ui/card";
-import { Button } from "~/components/ui/button";
-import { Separator } from "~/components/ui/separator";
 import OnBoardingLayout from "~/components/layouts/OnboardingLayouts";
+import { getServerAuthSession } from "~/server/auth";
+import { SignUpForm } from "~/components/onboarding/SignupForm";
 
-const Login = ({
+const BecomeAPlayer = ({
     csrfToken,
     providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     // console.log(providers);
     return (
         <OnBoardingLayout>
-            stuff
+            <SignUpForm/>
         </OnBoardingLayout>
     );
 };
 
-export default Login;
+export default BecomeAPlayer;
 
 export const getServerSideProps = async (
     context: GetServerSidePropsContext
