@@ -21,7 +21,7 @@ const Gender = () => {
                       <AvatarFallback>MA</AvatarFallback>
                     </Avatar>
                   </div>
-
+lsdklsd;lsd;l;lsd;lsd
                   <h1 className="text-center font-semibold uppercase">Male</h1>
                 </Label>
               </div>
