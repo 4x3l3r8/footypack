@@ -150,6 +150,8 @@ export function SignUpForm(props: IAppProps) {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
+
+                    oo
                   />
                   
                   <div
