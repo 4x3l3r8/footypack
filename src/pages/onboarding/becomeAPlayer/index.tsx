@@ -6,7 +6,7 @@ import type {
 } from "next";
 import OnBoardingLayout from "~/components/layouts/OnboardingLayouts";
 import { getServerAuthSession } from "~/server/auth";
-import { SignUpForm } from "~/components/onboarding/SignupForm";
+import { BasicInformation } from "~/components/onboarding/BasicInformation";
 
 const BecomeAPlayer = ({
     csrfToken,
@@ -15,7 +15,7 @@ const BecomeAPlayer = ({
     // console.log(providers);
     return (
         <OnBoardingLayout>
-            <SignUpForm/>
+            <BasicInformation />
         </OnBoardingLayout>
     );
 };
