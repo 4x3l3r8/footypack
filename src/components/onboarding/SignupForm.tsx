@@ -167,7 +167,7 @@ export function SignUpForm(props: IAppProps) {
                   ) : null}
               </div>
             </div>
-            <SignUpProgress />
+            <SignUpProgress firstBtn='Login Instead' secondBtn='signup' progressValue={33} />
           </form>
         </div>
       </section>

@@ -3,20 +3,26 @@ import React from "react";
 import { Button } from "~/components/ui/button";
 import { Progress } from "~/components/ui/progress";
 
-const SignUpProgress = () => {
+interface progressBtnProps {
+  firstBtn: string;
+  secondBtn: string;
+  progressValue: number | null | undefined;
+}
+
+const SignUpProgress = ({firstBtn, secondBtn, progressValue}: progressBtnProps) => {
   return (
     <>
       <div className="my-4">
-        <Progress value={33} className="mb-4 h-1" />
+        <Progress value={progressValue} className="mb-4 h-1" />
 
         <div className="my-4 flex justify-between">
           <Button
             variant={"ghost"}
             className="rounded-none border uppercase text-blue-700"
           >
-            Login Instead
+            {firstBtn}
           </Button>
-          <Button className="rounded-none uppercase" type="submit">signup</Button>
+          <Button className="rounded-none uppercase" type="submit">{secondBtn}</Button>
         </div>
 
         <p className="px-8 text-center  tracking-wide text-gray-500">
