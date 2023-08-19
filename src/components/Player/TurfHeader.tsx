@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-const SectHeader = () => {
+const TurfHeader = () => {
   return (
     <>
     <div className="flex items-center font-bold justify-between p-4 border border-gray-300">
@@ -15,4 +15,4 @@ const SectHeader = () => {
   )
 }
 
-export default SectHeader
+export default TurfHeader
