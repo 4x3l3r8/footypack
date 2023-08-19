@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 const Hero = () => {
   return (
     <>
-    <section className='bg-slate-100 p-4 md:px-24 md:py-8'>
+    <section className='p-4 md:px-24 md:py-8'>
         <div className='md:flex justify-between'>
           <div className='my-4 md:my-0'>
             <h1 className='text-xl font-bold uppercase'>welcome Queennette,</h1>
