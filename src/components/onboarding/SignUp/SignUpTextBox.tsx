@@ -14,7 +14,7 @@ interface signUpInputProps {
   handleErrors?: string;
 }
 
-const SignUpButton = ({
+const SignUpTextBox = ({
   title,
   idName,
   placeholder,
@@ -54,4 +54,4 @@ const SignUpButton = ({
   );
 };
 
-export default SignUpButton;
+export default SignUpTextBox;
