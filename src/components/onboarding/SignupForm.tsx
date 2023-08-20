@@ -10,20 +10,11 @@ import FormMain from "./SignUp/FormMain";
 import { User } from "~/types";
 
 export interface IAppProps {
-  authMethod: string | null;
-  user?: User
-}
-
-interface formProp {
-  firstName: string;
-  lastName: string;
-  email: string,
-  password: string,
-  phoneNumber: string,
+  st?: null
 }
 
 export function SignUpForm(props: IAppProps) {
-    return (
+  return (
     <>
       <section className="w-11/12 md:w-10/12">
         {/* <Button variant={"secondary"} className="my-3 rounded-none">

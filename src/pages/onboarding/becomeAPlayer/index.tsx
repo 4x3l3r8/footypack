@@ -5,11 +5,9 @@ import type {
     InferGetServerSidePropsType,
 } from "next";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import OnBoardingLayout from "~/components/layouts/OnboardingLayouts";
 import { SignUpForm } from "~/components/onboarding/SignupForm";
 import { getServerAuthSession } from "~/server/auth";
-import type { User } from "~/types";
 
 const BecomeAPlayer = ({
     csrfToken,
@@ -26,7 +24,7 @@ const BecomeAPlayer = ({
 
     return (
         <OnBoardingLayout>
-            <SignUpForm authMethod={method} user={SessionData?.user} />
+            <SignUpForm />
         </OnBoardingLayout>
     );
 };

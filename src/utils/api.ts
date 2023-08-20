@@ -77,23 +77,23 @@ export const signUpValidation = Yup.object({
     firstName: Yup.string()
       .max(30, "Must be less than 30 characters")
       .min(3, "Must be more than 3 characters")
-      .required("This cant be empty"),
+      .required("This can't be empty"),
     lastName: Yup.string()
       .max(30, "Must be 30 characters or less")
-      .required("This cant be empty"),
+      .required("This can't be empty"),
     password: Yup.string()
       .min(8, "Must be at least 8 characters")
       .matches(
         passwordRegex,
         "Password must contain at least 8 characters, one uppercase letter, and one special character"
-      )
-      .required("This cant be empty"),
+      ),
+      // .required("This can't be empty"),
     phoneNumber: Yup.string()
       .matches(phoneRegex, "Invalid phone number")
-      .required("This cant be empty"),
+      .required("This can't be empty"),
     email: Yup.string()
       .email("Invalid email address")
       .matches(emailRegex, "Invalid email address")
-      .required("This cant be empty"),
+      .required("This can't be empty"),
   })
 
