@@ -1,21 +1,32 @@
-import { getCsrfToken, getProviders } from "next-auth/react";
+import { getCsrfToken, getProviders, useSession } from "next-auth/react";
 // import Header from "../../components/header";
 import type {
     GetServerSidePropsContext,
     InferGetServerSidePropsType,
 } from "next";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import OnBoardingLayout from "~/components/layouts/OnboardingLayouts";
+import { SignUpForm } from "~/components/onboarding/SignupForm";
 import { getServerAuthSession } from "~/server/auth";
-import { BasicInformation } from "~/components/onboarding/BasicInformation";
+import type { User } from "~/types";
 
 const BecomeAPlayer = ({
     csrfToken,
     providers,
+    // session: SessionData
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    // console.log(providers);
+
+    // get auth method for signup 
+    const searchParams = useSearchParams()
+    const method = searchParams.get("auth")
+
+    // get session data
+    const { data: SessionData, status } = useSession()
+
     return (
         <OnBoardingLayout>
-            <BasicInformation />
+            <SignUpForm authMethod={method} user={SessionData?.user} />
         </OnBoardingLayout>
     );
 };
@@ -29,7 +40,7 @@ export const getServerSideProps = async (
     // Note: Make sure not to redirect to the same page
     // To avoid an infinite loop!
     const session = await getServerAuthSession(context);
-    if (session) {
+    if (session && session.user.userType) {
         return { redirect: { destination: "/" } };
     }
 
@@ -40,6 +51,7 @@ export const getServerSideProps = async (
         props: {
             providers,
             csrfToken,
+            // session
         },
     };
 };
