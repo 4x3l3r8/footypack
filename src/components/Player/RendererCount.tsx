@@ -9,25 +9,25 @@ interface countProps {
 const renderer = ({ days, hours, minutes, seconds, completed }: countProps) => {
   if (!completed) {
     return (
-      <section className="flex gap-2 text-xs leading-4 text-white">
+      <section className="flex gap-2 font-bold leading-4 text-white px-2">
         <div className="flex flex-col items-center justify-center">
           <span className="font-bold">{days}</span>
-          <span className="uppercase">Days</span>
+          <span className="uppercase text-xs">Days</span>
         </div>{" "}
         :
         <div className="flex flex-col items-center justify-center">
           <span className="font-bold">{hours}</span>
-          <span className="uppercase">Hrs</span>
+          <span className="uppercase text-xs">Hrs</span>
         </div>{" "}
         :
         <div className="flex flex-col items-center justify-center">
           <span className="font-bold">{minutes}</span>
-          <span className="uppercase">mins</span>
+          <span className="uppercase text-xs">mins</span>
         </div>{" "}
         :
         <div className="flex flex-col items-center justify-center">
           <span className="font-bold">{seconds}</span>
-          <span className="uppercase">secs</span>
+          <span className="uppercase text-xs">secs</span>
         </div>
       </section>
     );
