@@ -3,10 +3,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
-import { useSession } from 'next-auth/react'
+
+// import Countdown from 'react-countdown'
+import renderer from './RendererCount'
+import Countdown from '../common/Countdown'
 
 const Hero = () => {
+ const targetDate = new Date('2023-10-21 04:31:59').getTime();
+
+  import { useSession } from 'next-auth/react'
   const { data: UserData } = useSession()
+
   return (
     <>
       <section className='p-4 md:px-24 md:py-8'>
@@ -27,9 +34,45 @@ const Hero = () => {
         </div>
 
         <div className="mt-4 md:flex gap-3">
+
+            <div className="basis-3/4 relative h-36 my-4 md:my-0">
+                <div className="w-full h-full">
+                  <Image src={'/images/playerComp2.png'} fill alt='' />
+                </div>
+
+                <div className="absolute w-full h-full left-0 top-0 flex justify-between py-4">
+                  <div className='text-white uppercase font-bold px-4 self-end'>
+                  <h1 className="bg-primary p-2 px-4 inline-block mb-1">
+                    Lagos
+                  </h1>
+                  <br />
+                  <h1 className="bg-primary p-2 px-4 inline-block ">
+                    players comp
+                  </h1>
+                  </div>
+
+                  <div className="flex flex-col justify-between">
+                  <h1 className="bg-white text-primary uppercase font-bold p-2 inline-block ">
+                    next game at ikeja
+                  </h1>
+
+                  {/* <Countdown date={targetDate} renderer={renderer} /> */}
+                  <Countdown targetDate={targetDate} />
+
+                  </div>
+                </div>
+            </div>
+
+            <div className="basis-1/4 flex p-4 flex-col justify-between rounded bg-white border-gray-200 border shadow-sm">
+                <div className='mb-8'>
+                    <p className="text-gray-500 uppercase text-sm">
+                    Wallet Balance
+                    </p>
+
           <div className="basis-3/4 relative h-36 my-4 md:my-0">
             <Image src={'/images/playerComp.png'} fill alt='' />
           </div>
+
 
           <div className="basis-1/4 flex p-4 flex-col justify-between rounded bg-white border-gray-200 border shadow-sm">
             <div className='mb-8'>

@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import React from "react";
+import NavBar from "~/components/Player/Dashboard/NavBar";
 import Hero from "~/components/Player/Hero";
 import PlayerEvent from "~/components/Player/PlayerEvent";
 import PlayerScheduleGame from "~/components/Player/PlayerScheduleGame";
@@ -7,6 +8,7 @@ import TurfSect from "~/components/Player/TurfSect";
 import { Footer, NavBar } from "~/components/common";
 import { AuthLayout } from "~/components/layouts/ProtectedLayout";
 import { getServerAuthSession } from "~/server/auth";
+
 
 const index = () => {
   return (
