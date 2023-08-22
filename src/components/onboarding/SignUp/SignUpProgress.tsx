@@ -7,9 +7,10 @@ interface progressBtnProps {
   firstBtn: string;
   secondBtn: string;
   progressValue: number | null | undefined;
+  onProceed?: () => void
 }
 
-const SignUpProgress = ({firstBtn, secondBtn, progressValue}: progressBtnProps) => {
+const SignUpProgress = ({ firstBtn, secondBtn, progressValue, onProceed }: progressBtnProps) => {
   return (
     <>
       <div className="my-4">
@@ -22,7 +23,7 @@ const SignUpProgress = ({firstBtn, secondBtn, progressValue}: progressBtnProps) 
           >
             {firstBtn}
           </Button>
-          <Button className="rounded-none uppercase" type="submit">{secondBtn}</Button>
+          <Button onClick={onProceed} className="rounded-none uppercase" type="button">{secondBtn}</Button>
         </div>
 
         <p className="px-8 text-center  tracking-wide text-gray-500">

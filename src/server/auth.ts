@@ -10,6 +10,7 @@ import {
 import GoogleProvider from "next-auth/providers/google";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import type { User, UserType } from "~/types";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -19,13 +20,15 @@ import { prisma } from "~/server/db";
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    user: {
-      id: string;
-      firstname: string;
-      lastname: string;
-      // ...other properties
-      // role: UserRole;
-    } & DefaultSession["user"];
+    // user: {
+    //   id: string;
+    //   firstname: string;
+    //   lastname: string;
+    //   userType: UserType;
+    //   // ...other properties
+    //   // role: UserRole;
+    // } & DefaultSession["user"];
+    user: User & DefaultSession["user"]
   }
 
   // interface User {
@@ -50,14 +53,14 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     signIn: (params) => {
-      // console.log(params);
-      return false
+      console.log(params);
+      return true
     }
   },
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/auth/login",
-    newUser: "/onboarding",
+    // newUser: "/onboarding",
   },
   providers: [
     GoogleProvider({

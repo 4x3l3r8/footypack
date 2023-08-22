@@ -15,7 +15,7 @@ import TurfsNearby from "~/components/landingPage/TurfsNearby";
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  // const { data: turfs, refetch: refetchTurfs } = api.turf.getAll.useQuery()
 
   return (
     <>
@@ -34,6 +34,7 @@ const Home: NextPage = () => {
       <FootyFacts />
       <SearchBookPlay />
       <Footer />
+      {/* {turfs?.map((turf) => { return (<>{turf.name}</>)})} */}
     </>
   );
 };

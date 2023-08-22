@@ -3,18 +3,23 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
+
 // import Countdown from 'react-countdown'
 import renderer from './RendererCount'
 import Countdown from '../common/Countdown'
 
 const Hero = () => {
  const targetDate = new Date('2023-10-21 04:31:59').getTime();
+
+  import { useSession } from 'next-auth/react'
+  const { data: UserData } = useSession()
+
   return (
     <>
-    <section className='p-4 md:px-24 md:py-8'>
+      <section className='p-4 md:px-24 md:py-8'>
         <div className='md:flex justify-between'>
           <div className='my-4 md:my-0'>
-            <h1 className='text-xl font-bold uppercase'>welcome Queennette,</h1>
+            <h1 className='text-xl font-bold uppercase'>welcome {UserData?.user.firstname},</h1>
             <p className='text-gray-500'>Ready to book your next game?</p>
           </div>
           <div>
@@ -29,6 +34,7 @@ const Hero = () => {
         </div>
 
         <div className="mt-4 md:flex gap-3">
+
             <div className="basis-3/4 relative h-36 my-4 md:my-0">
                 <div className="w-full h-full">
                   <Image src={'/images/playerComp2.png'} fill alt='' />
@@ -63,15 +69,26 @@ const Hero = () => {
                     Wallet Balance
                     </p>
 
-                    <h1 className="uppercase font-bold text-3xl">
-                    N5,000.00
-                    </h1>
-                </div>
+          <div className="basis-3/4 relative h-36 my-4 md:my-0">
+            <Image src={'/images/playerComp.png'} fill alt='' />
+          </div>
 
-                <Link href='#' className='text-blue-500 flex underline items-center'>
-                    <PlusCircle size={15} className='mr-1' /> <span className='text-xs font-bold'>Add money</span>
-                </Link>
+
+          <div className="basis-1/4 flex p-4 flex-col justify-between rounded bg-white border-gray-200 border shadow-sm">
+            <div className='mb-8'>
+              <p className="text-gray-500 uppercase text-sm">
+                Wallet Balance
+              </p>
+
+              <h1 className="uppercase font-bold text-3xl">
+                N5,000.00
+              </h1>
             </div>
+
+            <Link href='#' className='text-blue-500 flex underline items-center'>
+              <PlusCircle size={15} className='mr-1' /> <span className='text-xs font-bold'>Add money</span>
+            </Link>
+          </div>
         </div>
       </section>
     </>

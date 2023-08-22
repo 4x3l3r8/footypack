@@ -11,18 +11,24 @@ import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SignUp = ({
   csrfToken,
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  // console.log(providers);
+  const router = useRouter()
 
   // get usertype from url
   const searchParams = useSearchParams()
   const type = searchParams.get('t');
-  console.log(type)
+
+  useEffect(() => {
+    if (!type) {
+      router.replace('/onboarding')
+    }
+  }, [router, type])
   return (
     <div className="h-auto w-screen overflow-x-hidden">
       <NavBar />
@@ -48,7 +54,7 @@ const SignUp = ({
                     key={provider.name}
                     className="rounded-none"
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+                    onClick={() => signIn(provider.id, { callbackUrl: `/onboarding/${type === "1" ? "becomeaplayer" : "turfmanager"}?auth=${provider.id}` })}
                   >
                     Sign in with {provider.name}
                   </Button>

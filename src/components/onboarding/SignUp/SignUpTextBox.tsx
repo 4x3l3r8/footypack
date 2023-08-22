@@ -1,8 +1,9 @@
 import { Label } from "@radix-ui/react-label";
 import { AlertTriangle } from "lucide-react";
 import React from "react";
+import type { InputProps } from "~/components/ui/input";
 
-interface signUpInputProps {
+interface signUpInputProps extends InputProps {
   title: string;
   idName: string;
   placeholder: string;
@@ -24,6 +25,7 @@ const SignUpTextBox = ({
   handleTouch,
   handleBlur,
   handleErrors,
+  ...props
 }: signUpInputProps) => {
   return (
     <>
@@ -32,9 +34,8 @@ const SignUpTextBox = ({
           {title} <span className="text-red-500">*</span>
         </Label>
         <input
-          className={`w-full border p-2 outline-none focus:border-primary focus:outline-none ${
-            handleTouch && handleErrors ? "border-red-700" : ""
-          }`}
+          className={`w-full rounded border p-2 outline-none focus:border-primary focus:outline-none ${handleTouch && handleErrors ? "border-red-700" : ""
+            }`}
           type={inpType}
           id={idName}
           name={idName}
@@ -42,6 +43,7 @@ const SignUpTextBox = ({
           onChange={handleChange}
           onBlur={handleBlur}
           value={value}
+          {...props}
         />
         {handleTouch && handleErrors ? (
           <div className="flex items-center gap-2 text-xs text-red-700">
