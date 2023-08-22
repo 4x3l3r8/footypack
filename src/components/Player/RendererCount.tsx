@@ -9,7 +9,7 @@ interface countProps {
 const renderer = ({ days, hours, minutes, seconds, completed }: countProps) => {
   if (!completed) {
     return (
-      <section className="flex gap-2 font-bold leading-4 text-white px-2">
+      <div className="flex gap-2 font-bold leading-4 text-white px-2">
         <div className="flex flex-col items-center justify-center">
           <span className="font-bold">{days}</span>
           <span className="uppercase text-xs">Days</span>
@@ -29,7 +29,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }: countProps) => {
           <span className="font-bold">{seconds}</span>
           <span className="uppercase text-xs">secs</span>
         </div>
-      </section>
+      </div>
     );
   } else {
     return <span className="text-white font-bold">Game is ongoing</span>

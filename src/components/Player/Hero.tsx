@@ -3,8 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
-import Countdown from 'react-countdown'
+// import Countdown from 'react-countdown'
 import renderer from './RendererCount'
+import Countdown from '../common/Countdown'
 
 const Hero = () => {
  const targetDate = new Date('2023-10-21 04:31:59').getTime();
@@ -49,7 +50,8 @@ const Hero = () => {
                     next game at ikeja
                   </h1>
 
-                  <Countdown date={targetDate} renderer={renderer} />
+                  {/* <Countdown date={targetDate} renderer={renderer} /> */}
+                  <Countdown targetDate={targetDate} />
 
                   </div>
                 </div>
