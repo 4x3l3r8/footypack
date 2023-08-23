@@ -141,7 +141,7 @@ const BookNow = () => {
           variant={"outline"}
           className={cn(
             "w-[280px] justify-start border-none p-0 hover:bg-transparent text-black  text-left font-normal",
-            !date && "text-black hover:text-black"
+            !date && "text-black hover:text-black capitalize"
           )}
         >
           {/* <CalendarIcon className="mr-2 h-4 w-4" /> */}
