@@ -1,15 +1,15 @@
 import {
-  Clock1,
+  // Clock1,
   Clock4,
   MapPin,
   Phone,
-  PhoneCall,
+  // PhoneCall,
   Star,
-  StarOff,
+  // StarOff,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-import { BookingCard } from "./BookingGame";
+// import { BookingCard } from "./BookingGame";
 import BookNow from "./BookNow";
 import Image from "next/image";
 import TurfsNearby from "../landingPage/TurfsNearby";
@@ -102,60 +102,53 @@ export function AboutTurfTab(props: IAboutTurfTabProps) {
        <div>
         <h1 className="uppercase font-semibold italic text-[#777]">Facilities</h1>
     <div className="grid lg:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-              <Button
-                size={"sm"}
-                variant={"outline"}
-                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
-              >
+
+      <div className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] rounded-sm border border-primary -skew-y-12 px-4 py-2 h-12">
+        <span className=" flex items-center justify-center">
+        <Image src='../images/jersey.svg' width={20} height={20} alt="jersey" />
+                <span className="text-xl font-medium text-primary uppercase">Dressing Room</span>
+        </span>
+      </div>
+
+      <div className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] rounded-sm border border-primary -skew-y-12 px-4 py-2 h-12">
+      <span className=" flex items-center justify-center">
                 <Image src='../images/jersey.svg' width={20} height={20} alt="jersey" />
-                <span className="rotate-0 skew-y-0 text-xl">Dressing Room</span>
-              </Button>
+                <span className="font-medium text-primary text-xl uppercase">lounge</span>
+                </span>
+              </div>
 
-              <Button
-                size={"sm"}
-                variant={"outline"}
-                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
-              >
-                <Image src='../images/jersey.svg' width={20} height={20} alt="jersey" />
-                <span className="rotate-0 skew-y-0 text-xl">lounge</span>
-              </Button>
-
-
-              <Button
-                size={"sm"}
-                variant={"outline"}
-                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
-              >
+              <div className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] rounded-sm border border-primary -skew-y-12 px-4 py-2 h-12">
+      <span className=" flex items-center justify-center">
                 <Image src='../images/restroom.svg' width={20} height={20} alt="jersey" />
-                <span className="rotate-0 skew-y-0 text-xl">rest room</span>
-              </Button>
+                <span className="font-medium text-primary text-xl uppercase">rest room</span>
+                </span>
+              </div>
 
-              <Button
-                size={"sm"}
-                variant={"outline"}
-                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
-              >
+              <div className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] rounded-sm border border-primary -skew-y-12 px-4 py-2 h-12">
+      <span className=" flex items-center justify-center">
                 <Image src='../images/first-aid-kit.svg' width={20} height={20} alt="jersey" />
-                <span className="rotate-0 skew-y-0 text-xl">first aid</span>
-              </Button>
+                <span className="font-medium text-primary text-xl uppercase">first aid</span>
+                </span>
+              </div>
 
-              <Button
-                size={"sm"}
-                variant={"outline"}
-                className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] -skew-y-12 px-4 py-4"
-              >
+              <div className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] rounded-sm border border-primary -skew-y-12 px-4 py-2 h-12">
+      <span className=" flex items-center justify-center">
                 <Image src='../images/restroom.svg' width={20} height={20} alt="jersey" />
-                <span className="rotate-0 skew-y-0 text-xl">PARKING SPACE</span>
-              </Button>
+                <span className="font-medium text-primary text-xl uppercase">parking space</span>
+                </span>
+              </div>
 
-              <Button
-                size={"sm"}
-                variant={"outline"}
-                className="mb-0 w-fit bg-[#F8FFFD] rotate-[12.5deg] -skew-y-12 px-4 py-4"
-              >
+
+
+
+
+
+              <div className="mb-0 w-fit rotate-[12.5deg] bg-[#F8FFFD] rounded-sm border border-primary -skew-y-12 px-4 py-2 h-12">
+      <span className=" flex items-center justify-center">
                 <Image src='../images/jersey.svg' width={20} height={20} alt="jersey" />
-                <span className="rotate-0 skew-y-0 text-xl">sitting area</span>
-              </Button>
+                <span className="font-medium text-primary text-xl uppercase">sitting area</span>
+                </span>
+              </div>
 
               </div>
        </div>

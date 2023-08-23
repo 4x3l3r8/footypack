@@ -5,14 +5,19 @@ import { Carousel, Share } from "~/components/common";
 import { Layout } from "~/components/layouts";
 import { AboutTurfTab } from "~/components/turfs/AboutTab";
 import { Review } from "~/components/turfs/BookingGame/Review";
-
+import Ratings from '~/components/turfs/Ratings';
 import { TurfGames } from "~/components/turfs/TurfGames";
+import TurfGamesCompleted from "~/components/turfs/TurfGamesCompleted";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
 const SingleTurf: NextPage = () => {
   const numberOfReviews = 8; // Number of times to repeat the Review component
+  const handleRatingChange = (rating: number) => {
+    console.log('Selected rating:', rating);
+    // You can perform any further actions here, like sending the rating to a server, etc.
+  };
   return (
     <Layout rareOcassions>
       <Card className="mb-4 rounded-t-none border-t-0">
@@ -76,6 +81,10 @@ const SingleTurf: NextPage = () => {
 
             {/* Reviews tab content */}
             <TabsContent value="1" className="w-full transition-all">
+            <div className='my-4'>
+            <Ratings rating={4} />
+            <hr className="my-6 border-1" />
+          </div>
               <div className='mx-10 grid lg:grid-cols-2 md:grid-cols-2 gap-4 mt-8'>
                 {Array.from({ length: numberOfReviews }).map((_, index) => (
                   <Review key={index} />
@@ -104,19 +113,24 @@ const SingleTurf: NextPage = () => {
 
             {/* Games tab content */}
             <TabsContent value="2" className=" w-full transition-all">
-              <div className=" flex items-center space-y-3 space-x-3">
-                <button className="  text-xl text-white uppercase bg-[#006716] rotate-[12.5deg] px-6 py-4 -skew-y-12">
-                  <span className="rotate-0 skew-y-0"> upcoming</span>
-                </button>
-                <button className=" text-xl text-black uppercase bg-[#E0E0E0] rotate-[12.5deg] px-6 py-4 -skew-y-12">
-                  <span className="rotate-0 skew-y-0">completed</span>
-                </button>
-              </div>
-              <div className='grid lg:grid-cols-4 md:grid-cols-4 grid-cols gap-4'>
+
+            <Tabs defaultValue="upcoming" className="w-full mt-8">
+  <TabsList className="space-x-3 bg-white">
+    <TabsTrigger value="upcoming" className="  text-xl text-white uppercase bg-[#006716] rounded-none rotate-[12.5deg] px-6 py-4 -skew-y-12">upcoming</TabsTrigger>
+    <TabsTrigger value="completed" className="  text-xl text-white uppercase bg-[#006716] rounded-none rotate-[12.5deg] px-6 py-4 -skew-y-12">completed</TabsTrigger>
+  </TabsList>
+  <TabsContent value="upcoming">
+  <div className='grid lg:grid-cols-4 md:grid-cols-4 grid-cols gap-4'>
                 {Array.from({ length: numberOfReviews }).map((_, index) => (
                   <TurfGames key={index} />
                 ))}
               </div>
+  </TabsContent>
+  <TabsContent value="completed">
+  <TurfGamesCompleted />
+  </TabsContent>
+</Tabs>
+
 
             </TabsContent>
           </Tabs>
