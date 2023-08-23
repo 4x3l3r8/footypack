@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react"
 import { useState } from "react";
-import 'react-datepicker/dist/react-datepicker.css';
 import { Info } from 'lucide-react';
 import { Card,  CardContent, CardDescription, CardHeader, CardTitle, } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
@@ -141,8 +140,8 @@ const BookNow = () => {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start border-none p-0  text-left font-normal",
-            !date && "text-muted-foreground"
+            "w-[280px] justify-start border-none p-0 hover:bg-transparent text-black  text-left font-normal",
+            !date && "text-black hover:text-black"
           )}
         >
           {/* <CalendarIcon className="mr-2 h-4 w-4" /> */}
