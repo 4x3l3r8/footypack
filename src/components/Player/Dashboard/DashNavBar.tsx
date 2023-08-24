@@ -1,14 +1,22 @@
 import { Avatar } from "@radix-ui/react-avatar";
-import { AlignJustify, Bell } from "lucide-react";
+import { AlignJustify, Bell, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Separator } from "~/components/ui/separator";
+import { useSession } from "next-auth/react";
+import {
+  Popover,
+  PopoverTrigger,
+} from "~/components/ui/popover";
+import PopContent from "./PopContent";
 
-const NavBar = () => {
+
+const DashNavBar = () => {
   const pathname = usePathname();
+  const { data: UserData } = useSession();
   const navLinks = [
     {
       name: "Dashboard",
@@ -16,7 +24,7 @@ const NavBar = () => {
     },
     {
       name: "Turfs",
-      href: "/turf",
+      href: "/turfs",
     },
     {
       name: "Games",
@@ -56,9 +64,9 @@ const NavBar = () => {
         <nav
           className={`absolute left-0 top-[62px] flex w-full flex-1 flex-col justify-between bg-slate-50 transition-all delay-300 md:static md:h-auto ${
             isNavOpen ? "h-[300px] p-4" : "h-0"
-          } overflow-hidden md:flex-row md:items-center`}
+          }  overflow-hidden md:flex-row md:items-center`}
         >
-          <div className="flex flex-col gap-4 md:flex-row">
+          <div className="flex flex-col gap-4 overflow-hidden md:flex-row">
             {navLinks.map((link, index) => {
               const isActive = pathname?.startsWith(link.href);
               return (
@@ -80,19 +88,25 @@ const NavBar = () => {
 
           <Separator className="my-4 md:hidden" />
 
-          <div className="flex flex-row-reverse justify-between md:flex-row">
+          <div className="relative flex flex-row-reverse justify-between md:flex-row">
             <div className="mr-2 rounded-full bg-slate-200 p-2">
               <Bell size={12} />
             </div>
-            <div className="flex items-center">
+            <div className="relative flex w-full items-center">
               <Avatar className="mr-2 h-6 w-6">
                 <AvatarImage src="/images/maleAvatar.png" />
                 <AvatarFallback>IM</AvatarFallback>
               </Avatar>
 
-              <h1 className="text-xs font-bold uppercase">
-                WELCOME QUEENNETTE
+              <h1 className="mr-2 text-xs font-bold uppercase">
+                WELCOME {UserData?.user.firstname}
               </h1>
+              <Popover>
+                <PopoverTrigger>
+                  <ChevronDown size={18} className="cursor-pointer" />
+                </PopoverTrigger>
+                <PopContent />
+              </Popover>
             </div>
           </div>
         </nav>
@@ -106,4 +120,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default DashNavBar;

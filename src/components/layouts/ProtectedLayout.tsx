@@ -6,6 +6,7 @@ import type { GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "~/server/auth";
 import { useSession } from "next-auth/react";
 import Navigate from "~/utils/Navigate";
+import Image from "next/image";
 
 export const AuthLayout: FC<{ children: ReactNode; rareOcassions?: boolean }> = ({
     children,
@@ -31,7 +32,9 @@ export const AuthLayout: FC<{ children: ReactNode; rareOcassions?: boolean }> = 
             );
             break
         case "loading":
-            return <div>Imagine a loading screen here, Imagination wan wunjure me</div>
+            return <div className="h-screen flex justify-center items-center p-4 md:p-24 text-xl font-bold text-center">
+                <Image src='/images/footballLoading.gif' width={250} height={250} alt='' />
+            </div>
             break
         default:
             return (<Navigate to="/auth/login" replace />)
