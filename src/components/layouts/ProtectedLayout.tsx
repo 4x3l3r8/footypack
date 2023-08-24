@@ -31,7 +31,7 @@ export const AuthLayout: FC<{ children: ReactNode; rareOcassions?: boolean }> = 
             );
             break
         case "loading":
-            return <div>Imagine a loading screen here, Imagination wan wunjure me</div>
+            return <div className="h-screen flex justify-center items-center p-4 md:p-24 text-xl font-bold text-center">Imagine a loading screen here, Imagination wan wunjure me</div>
             break
         default:
             return (<Navigate to="/auth/login" replace />)
