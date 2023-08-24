@@ -24,7 +24,7 @@ const DashNavBar = () => {
     },
     {
       name: "Turfs",
-      href: "/turf",
+      href: "/turfs",
     },
     {
       name: "Games",

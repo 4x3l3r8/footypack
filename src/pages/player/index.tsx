@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import React from "react";
-import NavBar from "~/components/Player/Dashboard/DashNavBar";
+import DashNavBar from "~/components/Player/Dashboard/DashNavBar";
 import Hero from "~/components/Player/Hero";
 import PlayerEvent from "~/components/Player/PlayerEvent";
 import PlayerScheduleGame from "~/components/Player/PlayerScheduleGame";
@@ -20,7 +20,7 @@ const index = () => {
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
       <div className="bg-slate-50">
-        <NavBar />
+        <DashNavBar />
         <Hero />
         <TurfSect />
         <PlayerScheduleGame />
