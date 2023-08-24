@@ -20,7 +20,7 @@ const DashNavBar = () => {
   const navLinks = [
     {
       name: "Dashboard",
-      href: "/",
+      href: "/player",
     },
     {
       name: "Turfs",
