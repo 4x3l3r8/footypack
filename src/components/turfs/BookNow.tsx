@@ -28,11 +28,11 @@ import { CheckIcon, ChevronsUpDown } from "lucide-react";
 
 const Duration = [
   {
-    value: "next.js",
+    value: "1 session (1 hrs)",
     label: "1 session (1 hrs)",
   },
   {
-    value: "sveltekit",
+    value: "2 sessions (2 hrs)",
     label: "2 sessions (2 hrs)",
   },
 ];
