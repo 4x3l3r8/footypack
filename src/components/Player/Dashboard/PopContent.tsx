@@ -19,33 +19,33 @@ const PopContent = () => {
 
           <Separator className="mt-4" />
 
-          <Link href="#" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
+          <Link href="/turfs" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
             <Search size={18} className="mr-2" />
             <h1 className="capitalize">find turfs</h1>
           </Link>
-          <Link href="#" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
+          <Link href="/games" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
             <Dribbble size={18} className="mr-2" />
             <h1 className="capitalize">my games</h1>
           </Link>
 
           <Separator className="my-2" />
 
-          <Link href="#" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
+          <Link href="/profile" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
             <UserCircle size={18} className="mr-2" />
             <h1 className="capitalize">profile</h1>
           </Link>
-          <Link href="#" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
+          <Link href="/settings" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
             <Settings size={18} className="mr-2" />
             <h1 className="capitalize">settings</h1>
           </Link>
 
           <Separator className="my-2" />
 
-          <Link href="#" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
+          <Link href="/help" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
             <Phone size={18} className="mr-2" />
             <h1 className="capitalize">help</h1>
           </Link>
-          <Link href="#" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
+          <Link href="/support" className="flex items-center p-2 hover:border-r-4 hover:border-primary hover:bg-green-50 hover:text-primary hover:font-bold">
             <Mail size={18} className="mr-2" />
             <h1 className="capitalize">support</h1>
           </Link>

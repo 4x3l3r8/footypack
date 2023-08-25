@@ -24,7 +24,7 @@ const PlayerScheduleCard = ({
 }: scheduleGameProps) => {
   return (
     <div className="p-2 basis-full md:basis-1/4">
-        <div className=" rounded bg-white p-3 transition-all delay-100 hover:scale-105">
+        <div className=" rounded bg-white p-3 transition-all delay-100 hover:scale-105 shadow-md">
       <Image src={stadiumImage} width={400} height={120} alt="" />
 
       <div className="my-4 flex items-center gap-2">
