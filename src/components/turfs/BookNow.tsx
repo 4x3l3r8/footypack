@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react"
 import { useState } from "react";
+import Image from 'next/image'
 import { Info } from 'lucide-react';
 import { Card,  CardContent, CardDescription, CardHeader, CardTitle, } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
@@ -34,6 +35,29 @@ const Duration = [
   {
     value: "2 sessions (2 hrs)",
     label: "2 sessions (2 hrs)",
+  },
+];
+
+const Rank = [
+  {
+    value: "1.0",
+    label: "1.0",
+  },
+  {
+    value: "2.0",
+    label: "2.0",
+  },
+  {
+    value: "3.0",
+    label: "3.0",
+  },
+  {
+    value: "4.0",
+    label: "4.0",
+  },
+  {
+    value: "5.0",
+    label: "5.0",
   },
 ];
 
@@ -131,7 +155,7 @@ const BookNow = () => {
 
        <CardContent>
        <div className="flex flex-wrap ">
-           <div className='w-ful md:w-1/2 px-4'>
+           <div className='w-full md:w-1/2 px-4'>
        <div className="w-full p-2 mt-1 border-2 border-gray-300 rounded focus:ring focus:ring-blue-200 bg-white text-gray-700 placeholder-gray-400">
            <span>Date <b className='text-red-400'>*</b></span>
 
@@ -353,33 +377,39 @@ const BookNow = () => {
           className="w-full justify-between border-none p-0 capitalize text-black"
         >
           {valueRank
-            ? Teamsize.find((size) => size.value === valueRank)?.label
+            ? Rank.find((size) => size.value === valueRank)?.label
             : "All ranks"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 ">
         <Command>
-          <CommandGroup>
-            {Teamsize.map((size) => (
-              <CommandItem
-                key={size.value}
-                value={size.value}
-                onSelect={(currentValue) => {
-                  setValueRank(currentValue === valueRank ? "" : currentValue);
-                  setOpenRank(false);
-                }}
-              >
-                {size.label}
-                <CheckIcon
-                  className={cn(
-                    "ml-auto h-4 w-4",
-                    valueRank === size.value ? "opacity-100" : "opacity-0"
-                  )}
-                />
-              </CommandItem>
-            ))}
-          </CommandGroup>
+        <CommandGroup>
+  {Rank.map((size) => (
+    <CommandItem
+      key={size.value}
+      value={size.value}
+      onSelect={(currentValue) => {
+        setValueRank(currentValue === valueRank ? "" : currentValue);
+        setOpenRank(false);
+      }}
+    >
+      <div className="flex items-center">
+
+        {Array.from({ length: parseInt(size.value, 10) }).map((_, index) => (
+          <Image src='../images/Star.svg' width={20} height={20} alt='star' key={index} className="mr-2 h-4 w-4 text-yellow-400" />
+        ))}
+      <b>{size.label}</b>
+        <CheckIcon
+          className={cn(
+            "ml-auto h-4 w-4",
+            valueRank === size.value ? "opacity-100" : "opacity-0"
+          )}
+        />
+      </div>
+    </CommandItem>
+  ))}
+</CommandGroup>
         </Command>
       </PopoverContent>
     </Popover>

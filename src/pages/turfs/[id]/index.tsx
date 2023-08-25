@@ -85,7 +85,7 @@ const SingleTurf: NextPage = () => {
             <Ratings rating={4} />
             <hr className="my-6 border-1" />
           </div>
-              <div className='mx-10 grid lg:grid-cols-2 md:grid-cols-2 gap-4 mt-8'>
+              <div className='md:mx-10 grid lg:grid-cols-2 md:grid-cols-2 gap-4 mt-8'>
                 {Array.from({ length: numberOfReviews }).map((_, index) => (
                   <Review key={index} />
                 ))}

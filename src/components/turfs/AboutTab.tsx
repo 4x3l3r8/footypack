@@ -23,7 +23,7 @@ export function AboutTurfTab(props: IAboutTurfTabProps) {
   return (
     <div>
     <div className="flex w-full gap-3 ">
-      <div className="mt-12 flex w-[52%] flex-col space-y-5">
+      <div className="mt-12 flex md:w-[52%] w-full flex-col space-y-5">
         <p className="text-justify text-sm text-muted-foreground">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
           totam consequatur harum porro sunt aperiam magni, iure, quam eaque
@@ -40,7 +40,7 @@ export function AboutTurfTab(props: IAboutTurfTabProps) {
           <li className="flex items-center space-x-2">
             <MapPin className="mr-2 h-5 w-5" />
             <span className="pr-2">F4X5+XRM, </span>
-            <span>Ojo 102101, Lagos</span>
+            <span className="md:text-sm text-[13px]">Ojo 102101, Lagos</span>
             <Button variant={"link"} color="Blue">Show on map</Button>
           </li>
           <li className="flex items-center space-x-2">
@@ -157,7 +157,7 @@ export function AboutTurfTab(props: IAboutTurfTabProps) {
 
       </div>
 
-      <div className="mt-12 flex w-1/2 flex-col space-y-3">
+      <div className="mt-12 md:flex hidden w-1/2 flex-col space-y-3">
         <BookNow />
       </div>
     </div>

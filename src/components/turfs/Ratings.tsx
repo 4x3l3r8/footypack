@@ -14,7 +14,7 @@ const Ratings: React.FC<RatingProps> = ({ rating }) => {
       {[5,4,3,2,1].map((num) => (
         <div key={num} className="flex items-center space-x-3 text-[#545454] font-medium italic ">
           <span>{num}</span>
-          <div className="w-[520px] h-3 bg-[#F2F2F2] rounded-lg ">
+          <div className="md:w-[520px] w-[200px] h-3 bg-[#F2F2F2] rounded-lg ">
             <div
               className={`h-full space-y-6 ${
                 num <= rating ? 'bg-[#F18322] rounded-lg' : ''
