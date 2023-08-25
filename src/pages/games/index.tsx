@@ -1,9 +1,15 @@
+import { Search, X, ChevronDown, Filter } from "lucide-react";
 import React from "react";
+import FilterPopOver from "~/components/Games/FilterPopOver";
+import GamesCardContainer from "~/components/Games/GamesCardContainer";
 import Banner from "~/components/Player/Dashboard/Banner";
 import DashNavBar from "~/components/Player/Dashboard/DashNavBar";
-import PlayerScheduleCard from "~/components/Player/PlayerScheduleCard";
 import { Footer } from "~/components/common";
-import { Button } from "~/components/ui/button";
+import Pagination from "~/components/common/Pagination";
+import {
+  Popover,
+  PopoverTrigger,
+} from "~/components/ui/popover";
 import { Separator } from "~/components/ui/separator";
 
 const index = () => {
@@ -20,132 +26,30 @@ const index = () => {
             <p className="text-gray-500">Ready to book your next game?</p>
           </div>
 
-          <div className="my-4 flex w-full flex-wrap">
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-            <PlayerScheduleCard
-              stadiumImage="/images/playerScheduleImage.png"
-              avatarImage="https://github.com/shadcn.png"
-              organizerName="Adeniyi Daniel"
-              stadiumName="teslim balogun sTADIUM"
-              address="Adekunle 101245, Lagos"
-              eventTime="2:30PM"
-              eventDate="12 May, 2022"
-            />
-          </div>
-
-          <Separator />
-
-          <div className="flex p-2 font-bold uppercase justify-between items-center text-xs">
-            <h1 className="">showing 1 of 3</h1>
-
-            <div className="flex gap-4 items-center">
-              <button className="uppercase disabled:text-gray-500" disabled >Prev</button>
-              <button className="uppercase disabled:text-gray-500" disabled >1</button>
-              <button className="uppercase">2</button>
-              <button className="uppercase">3</button>
-              <button className="uppercase">next</button>
-
+          <div className="flex gap-4 p-2">
+            <div className="flex gap-2 border p-2">
+              <Search /> <Separator orientation="vertical" />{" "}
+              <input
+                type="text"
+                className="w-80 border-0 outline-0 focus:outline-0"
+              />
+            </div>
+            <div className="flex gap-2 border p-2">
+              <Filter /> <Separator orientation="vertical" /> <p>Filter By</p>
+              <Popover>
+                <PopoverTrigger>
+                  <ChevronDown />
+                </PopoverTrigger>
+                <FilterPopOver />
+              </Popover>
             </div>
           </div>
 
+          <GamesCardContainer />
+
+          <Separator />
+
+          <Pagination />
         </div>
       </section>
       <Footer />
