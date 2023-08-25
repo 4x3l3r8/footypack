@@ -131,8 +131,6 @@ const index = () => {
             />
           </div>
 
-          j
-
           <Separator />
 
           <div className="flex p-2 font-bold uppercase justify-between items-center text-xs">
