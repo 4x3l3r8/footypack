@@ -139,3 +139,33 @@
 .about p {
   @apply py-3 text-lg leading-[40px] text-gray-500
 }
+
+/* Custom checkbox styles */
+.checkbox-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.checkbox-container input[type="checkbox"] {
+  position: absolute;
+  opacity: 0; /* Hide the original checkbox */
+}
+
+.checkbox-custom {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #006716; /* Green color for border */
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom:before {
+  content: '\1F5F8';
+  display: block;
+  text-align: center;
+  line-height: 16px;
+  color: #fff; /* White color for the checkmark */
+  background-color: #006716; /* Green color when checked */
+}
