@@ -32,8 +32,8 @@ const GameDetailsLeft = () => {
           </div>
           <Separator />
 
-          <div className="my-8 text-gray-500 text-sm">
-            <p className='mb-2'>
+          <div className="my-8 text-gray-500 text-sm leading-[29px]">
+            <p>
               Group of friends who want to play football competitions every
               month. Make new friends, get fit and have fun.
             </p>
@@ -42,7 +42,7 @@ const GameDetailsLeft = () => {
               interested in playing football. No aggression or physical play
               accepted. Glasses and cleats recommended!
             </p>
-            <p className='mb-2'>
+            <p>
               Why join us?: - Play with a committed, mature and respectful
               community - We play in a safe environment, with good celebrations
               and no aggression or physical play allowed. Our main objective is
@@ -52,7 +52,7 @@ const GameDetailsLeft = () => {
 
           <Separator />
 
-          <div className='flex gap-8 my-4'>
+          <div className='flex gap-8 my-5'>
             <div>
             <div className='flex mb-6 gap-1 text-sm items-center'>
               <Clock size={14} className='text-[#F47920]' /> 2:30PM
