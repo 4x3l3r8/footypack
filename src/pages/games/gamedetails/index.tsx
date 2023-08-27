@@ -1,15 +1,14 @@
-import { Calendar } from "lucide-react";
-import { User } from "lucide-react";
-import { Users } from "lucide-react";
-import { Clock } from "lucide-react";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import GameDetailsLeft from "~/components/Games/gamedetails/GameDetailsLeft";
 import GameShares from "~/components/Games/gamedetails/GameShares";
 import Header from "~/components/Games/gamedetails/Header";
+import PlayersCard from "~/components/Games/gamedetails/PlayersCard";
 import DashNavBar from "~/components/Player/Dashboard/DashNavBar";
 import { Footer } from "~/components/common";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { Separator } from "~/components/ui/separator";
+import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 
 const index = () => {
   return (
@@ -19,89 +18,7 @@ const index = () => {
       <GameShares />
 
       <div className="flex flex-col gap-4 p-4 md:flex-row md:px-24">
-        <div className="basis-1/2">
-          <Image
-            src="/images/GameDetailsImage.png"
-            width={550}
-            height={400}
-            alt=""
-          />
-          <div className="my-4">
-            <h1 className="text-xl font-bold uppercase">
-              fast and skilled with the boys
-            </h1>
-            <p className="text-gray-500">Game Host</p>
-          </div>
-          <div className="my-4 flex items-center gap-2">
-            <div>
-              <Avatar className="h-6 w-6">
-                <AvatarImage src="/images/maleAvatar.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <p className="capitalize text-black">Onyekachi Samuel (You)</p>
-          </div>
-          <Separator />
-
-          <div className="my-4 text-gray-500 text-sm">
-            <p className='mb-2'>
-              Group of friends who want to play football competitions every
-              month. Make new friends, get fit and have fun.
-            </p>
-            <p className='mb-6'>
-              Goal of this group is to be a friendly league for everyone
-              interested in playing football. No aggression or physical play
-              accepted. Glasses and cleats recommended!
-            </p>
-            <p className='mb-2'>
-              Why join us?: - Play with a committed, mature and respectful
-              community - We play in a safe environment, with good celebrations
-              and no aggression or physical play allowed. Our main objective is
-              enjoying the game at a high level but having fun at the same time.
-            </p>
-          </div>
-
-          <Separator />
-
-          <div className='flex gap-8 my-4'>
-            <div>
-            <div className='flex mb-6 gap-1 text-sm items-center'>
-              <Clock size={14} className='text-[#F47920]' /> 2:30PM
-            </div>
-            <div className='flex gap-1 text-sm items-center'>
-              <Calendar size={14} className='text-[#F47920]' /> 12 May, 2023
-            </div>
-            </div>
-            
-            
-            <div>
-            <div className='flex mb-6 gap-1 text-sm items-center'>
-              <Users size={14} className='text-[#F47920]' /> All Gender
-            </div>
-            <div className='flex gap-1 text-sm items-center'>
-              <User size={14} className='text-[#F47920]' /> Age 14-22
-            </div>
-            </div>
-
-            <div>
-            <div className='flex mb-4 gap-1 text-sm items-center'>
-              <Users size={14} className='text-[#F47920]' /> 5-Aside
-            </div>
-            </div>
-          </div>
-
-          <Separator />
-
-          <div className="my-4">
-            <p className="text-gray-500 text-xl font-semibold">
-              Ticket Fee
-            </p>
-
-            <div className="flex items-end font-semibold text-gray-600"><h1 className="font-bold text-black text-4xl">N500.00</h1> /player</div>
-          </div>
-
-        </div>
+        <GameDetailsLeft />
         <div className="basis-1/2">
           <Image
             src="/images/gameDetailsMap.png"
@@ -109,6 +26,43 @@ const index = () => {
             height={300}
             alt=""
           />
+
+          <div className="my-4 flex items-center justify-between font-bold uppercase">
+            <h1 className="">players</h1>
+            <div className="flex items-center gap-2">
+              <ChevronLeft /> Set 1 <ChevronRight />
+            </div>
+          </div>
+
+          <div className="flex gap-8 my-8 px-4">
+            <div className="basis-1/2">
+              <h1 className="-skew-x-12 bg-blue-700 p-2 text-center font-bold uppercase text-white">
+                team blue
+              </h1>
+
+              <div className="my-4">
+                <PlayersCard playerImg="/images/femaleAvatar.png" playerName='Empty Spot' playerPosition='Goalkeeper' />   
+                <PlayersCard playerImg="/images/femaleAvatar.png" playerName='Samuel A' playerPosition='F.Attacking Midfielder' />            
+                <PlayersCard playerImg="/images/femaleAvatar.png" playerName='Damilola A' playerPosition='C.Attacking Midfielder' />
+                <PlayersCard playerImg="/images/femaleAvatar.png" playerName='Empty Spot' playerPosition='Left Back' />
+                <PlayersCard playerImg="/images/femaleAvatar.png" playerName='Daniel M' playerPosition='RightBack' />
+              </div>
+            </div>
+
+
+            <div className="basis-1/2">
+              <h1 className="-skew-x-12 bg-yellow-500 p-2 text-center font-bold uppercase text-white">
+                team yellow
+              </h1>
+              <div className="my-4">
+                <PlayersCard playerImg="/images/maleAvatar.png" playerName='Empty Spot' playerPosition='Goalkeeper' />   
+                <PlayersCard playerImg="/images/maleAvatar.png" playerName='Samuel A' playerPosition='F.Attacking Midfielder' />            
+                <PlayersCard playerImg="/images/maleAvatar.png" playerName='Damilola A' playerPosition='C.Attacking Midfielder' />
+                <PlayersCard playerImg="/images/maleAvatar.png" playerName='Empty Spot' playerPosition='Left Back' />
+                <PlayersCard playerImg="/images/maleAvatar.png" playerName='Daniel M' playerPosition='RightBack' />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -118,4 +72,3 @@ const index = () => {
 };
 
 export default index;
-
