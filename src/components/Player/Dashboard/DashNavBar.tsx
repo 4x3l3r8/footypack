@@ -89,7 +89,7 @@ const DashNavBar = () => {
           <Separator className="my-4 md:hidden" />
 
           <div className="relative flex flex-row-reverse justify-between md:flex-row">
-            <div className="mr-2 rounded-full bg-slate-200 p-2">
+            <div className="mr-6 rounded-full bg-slate-200 p-2">
               <Bell size={12} />
             </div>
             <div className="relative flex w-full items-center">
