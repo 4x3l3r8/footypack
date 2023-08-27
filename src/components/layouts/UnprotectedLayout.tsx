@@ -18,7 +18,7 @@ export const Layout: FC<{ children: ReactNode; rareOcassions?: boolean }> = ({
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
       {UserData?.user ? <DashNavBar /> : <NavBar />}
-      <div className={`w-full px-16 ${!rareOcassions && "py-5"} min-h-[30vh]`}>
+      <div className={`w-full px-2 md:px-16 ${!rareOcassions && "py-5"} min-h-[30vh]`}>
         {children}
       </div>
       {/* <div className={`min-h-[30vh] w-full px-16 py-5`}>{children}</div> */}

@@ -95,12 +95,12 @@ const GameDetailsRight = () => {
 
         <div className="my-4">
           <p className="text-gray-500">Match Link</p>
-          <div className="relative my-4 border bg-gray-200 p-4">
+          <div className="relative my-4 border-2 bg-gray-100 p-4">
             <p className="text-blue-700">
               https://footypack_match.com/ew399q003d3902kf2
             </p>
 
-            <div className="absolute right-0 top-0 h-full bg-gray-200 p-4">
+            <div className="absolute right-0 top-0 h-full bg-gray-100 p-4">
               <ClipboardCopy />
             </div>
           </div>
