@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Position from './Position';
 
 export interface IAppProps {
     st?: string;
@@ -6,8 +7,8 @@ export interface IAppProps {
 
 export function PreferredPosition(props: IAppProps) {
     return (
-        <div>
-
-        </div>
+        <>
+            <Position />
+        </>
     );
 }

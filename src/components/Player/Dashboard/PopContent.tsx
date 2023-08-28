@@ -2,6 +2,7 @@ import { LogIn, Phone, Settings, UserCircle } from "lucide-react";
 import { Mail } from "lucide-react";
 import { X } from "lucide-react";
 import { Dribbble, Search } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { PopoverContent } from "~/components/ui/popover";
@@ -52,7 +53,7 @@ const PopContent = () => {
 
           <Separator className="my-2" />
 
-          <Link href="#" className="flex items-center p-2 text-red-700 hover:border-r-4 hover:border-red-700 hover:bg-red-50 hover:text-red-700 hover:font-bold">
+          <Link href="#" onClick={() => void signOut()} className="flex items-center p-2 text-red-700 hover:border-r-4 hover:border-red-700 hover:bg-red-50 hover:text-red-700 hover:font-bold">
             <LogIn size={18} className="mr-2" />
             <h1 className="capitalize">signout</h1>
           </Link>
