@@ -1,10 +1,7 @@
 "use client";
 
-import { useFormik } from "formik";
-import { AlertTriangle, EyeIcon, EyeOffIcon } from "lucide-react";
 import * as React from "react";
-import { Button } from "../ui/button";
-import { ArrowLeft } from "lucide-react";
+
 import { Separator } from "../ui/separator";
 import FormMain from "./SignUp/FormMain";
 import { User } from "~/types";

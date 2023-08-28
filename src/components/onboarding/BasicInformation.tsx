@@ -3,12 +3,19 @@ import SignUpProgress from "./SignUp/SignUpProgress";
 import { Separator } from "../ui/separator";
 import Gender from "./SignUp/BasicInfo/Gender";
 import AgeRange from "./SignUp/BasicInfo/AgeRange";
+import { useRouter } from "next/navigation";
 
 export interface IAppProps {
   st?: string;
 }
 
 export function BasicInformation(props: IAppProps) {
+  const router = useRouter();
+
+  const basicInfoFunction = () => {
+    router.push('/onboarding/becomeAPlayer/preferredPosition')
+  };
+
   return (
     <>
       <section className="w-11/12 md:w-10/12">
@@ -33,7 +40,12 @@ export function BasicInformation(props: IAppProps) {
             />
           </div>
 
-          <SignUpProgress firstBtn="back" secondBtn="next" progressValue={66} />
+          <SignUpProgress
+            firstBtn="back"
+            secondBtn="next"
+            progressValue={66}
+            onProceed={basicInfoFunction}
+          />
         </div>
       </section>
     </>
