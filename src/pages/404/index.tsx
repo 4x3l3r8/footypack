@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const index = () => {
+const Index = () => {
   const [countdown, setCountdown] = useState(30);
   const router = useRouter()
 
@@ -46,4 +46,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
