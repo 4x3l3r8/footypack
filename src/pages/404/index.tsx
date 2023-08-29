@@ -20,13 +20,19 @@ const index = () => {
   }, [countdown]);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-between p-4 py-12 md:flex-row md:p-24">
-      <Link href="/">
+    <div className="flex relative overflow-hidden h-screen flex-col items-center justify-center p-4 gap-4 md:px-24 md:py-12">
+      <Link href="/" className="basis-1/4 ">
         <Image src="/images/NavLogo.svg" width={100} height={100} alt="" />
       </Link>
-      <Image src="/images/404.svg" width={400} height={200} alt="404 Image" />
 
-      <div className="flex flex-col justify-center items-center">
+      <div className="relative basis-1/2 text-center">
+      <h1 className="text-9xl text-primary font-extrabold">Oops!</h1>
+      <p className="uppercase font-bold mt-8">404 - page not found</p>
+      <p className="font-semibold text-gray-500 md:w-2/3 mx-auto">The page you are looking for might have been removed, had its name changed or temporarily unavailable</p>
+
+      </div>
+
+      <div className="flex flex-col justify-center items-center basis-1/4">
         <Image
           src="/images/footballLoading.gif"
           width={150}
@@ -34,7 +40,7 @@ const index = () => {
           alt=""
         />
 
-       <h1 className="font-bold">You will be redirected to homepage in <span className="text-primary text-xl">{countdown}</span></h1> 
+       <h1 className="font-bold">You will be redirected to homepage in <span className="text-primary text-xl">{countdown}</span> seconds</h1> 
       </div>
     </div>
   );
