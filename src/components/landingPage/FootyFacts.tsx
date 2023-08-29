@@ -4,8 +4,8 @@ export interface IFootyFactsProps {}
 
 export function FootyFacts(props: IFootyFactsProps) {
   return (
-    <section className="flex w-full gap-4 py-28 font-barlow">
-      <div className="pr relative grid w-1/2 grid-cols-2 grid-rows-2 gap-4 p-8 text-center uppercase">
+    <section className="flex p-4 md:px-0 flex-col md:flex-row w-full gap-4 py-28 font-barlow">
+      <div className="pr relative grid md:w-1/2 grid-cols-2 grid-rows-2 gap-4 p-8 text-center uppercase">
         <div className="player absolute bottom-0 left-0 right-0 top-0 w-full opacity-25"></div>
 
         <div className=" z-50 flex flex-col">
@@ -25,11 +25,11 @@ export function FootyFacts(props: IFootyFactsProps) {
           <span className="text-base font-semibold">vendors</span>
         </div>
       </div>
-      <div className="mt-12 flex w-1/2 flex-col space-y-3 pr-8">
+      <div className="mt-4 flex md:w-1/2 flex-col space-y-3 md:pr-8">
         <span className="text-3xl font-black uppercase italic">
           Register A turf
         </span>
-        <p className="mr-7 text-justify text-lg text-muted-foreground">
+        <p className="md:mr-7 text-justify text-lg text-muted-foreground">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod enim
           repellat, saepe odio nesciunt libero rem quibusdam temporibus
           aspernatur tenetur facilis tempora voluptatibus tempore.

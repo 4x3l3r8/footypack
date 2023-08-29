@@ -15,7 +15,7 @@ export function RegisterATurf(props: IRegisterATurfProps) {
         height={720}
         alt=""
       />
-      <div className="mt-12 flex flex-col space-y-3">
+      <div className="mt-12 p-4 md:p-0 flex flex-col space-y-3">
         <span className="text-3xl font-black uppercase italic">
           Register A turf
         </span>
