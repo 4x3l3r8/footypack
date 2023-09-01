@@ -2,6 +2,9 @@ import Image from 'next/image'
 import React from 'react'
 import { MoreHorizontal } from 'lucide-react';
 import { Card } from '../ui/card';
+import Gamedetails from './TurfDetails/Gamedetails';
+import Link from 'next/link';
+
 
 export const TurfGames = () => {
     return (
@@ -19,7 +22,9 @@ export const TurfGames = () => {
                         </div>
                         <div className="h-full w-full">
                             <div className="relative w-full">
+                            <Link href='/turfs/1/turfDetails' className=' cursor-pointer'>
                                 <Image src="/images/fieldball.jpg" width={438} height={107} className="mb-3  rounded-xl 3xl:h-full 3xl:w-full" alt="" />
+                           </Link>
                             </div>
                             <div className="mb-1 flex items-center justify-between px-1 md:items-start">
                                 <div className="mb-2">

@@ -397,7 +397,7 @@ const BookNow = () => {
       <div className="flex items-center">
 
         {Array.from({ length: parseInt(size.value, 10) }).map((_, index) => (
-          <Image src='../images/Star.svg' width={20} height={20} alt='star' key={index} className="mr-2 h-4 w-4 text-yellow-400" />
+          <Image src='../images/Star.svg' width={20} height={20} alt='star' key={index} className="mr-2 h-4 w-4" />
         ))}
       <b>{size.label}</b>
         <CheckIcon
