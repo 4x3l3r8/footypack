@@ -4,6 +4,7 @@ import { Separator } from "../ui/separator";
 import Gender from "./SignUp/BasicInfo/Gender";
 import AgeRange from "./SignUp/BasicInfo/AgeRange";
 import { useRouter } from "next/navigation";
+import { api, signUpValidation } from "~/utils/api";
 
 export interface IAppProps {
   st?: string;
@@ -11,9 +12,18 @@ export interface IAppProps {
 
 export function BasicInformation(props: IAppProps) {
   const router = useRouter();
+  
+  const updateUser = api.user.updateUser.useMutation({
+    onSuccess: () => {
+      return true;
+    },
+  });
+
 
   const basicInfoFunction = () => {
-    router.push('/onboarding/becomeAPlayer/preferredPosition')
+    updateUser.mutate({
+        
+    })
   };
 
   return (

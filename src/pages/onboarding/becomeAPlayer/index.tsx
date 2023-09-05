@@ -8,6 +8,10 @@ import { useSearchParams } from "next/navigation";
 import OnBoardingLayout from "~/components/layouts/OnboardingLayouts";
 import { SignUpForm } from "~/components/onboarding/SignupForm";
 import { getServerAuthSession } from "~/server/auth";
+import Otp from "~/components/onboarding/Otp";
+import { BasicInformation } from "~/components/onboarding/BasicInformation";
+import { PreferredPosition } from "~/components/onboarding/PreferredPosition";
+import { useState } from "react";
 
 const BecomeAPlayer = ({
     csrfToken,
@@ -18,13 +22,21 @@ const BecomeAPlayer = ({
     // get auth method for signup 
     const searchParams = useSearchParams()
     const method = searchParams.get("auth")
+    const [index, setIndex] = useState(3)
+
+    const onboarding = {
+        1: <SignUpForm />,
+        2: <Otp />,
+        3: <BasicInformation />,
+        4: <PreferredPosition />
+    }
 
     // get session data
     const { data: SessionData, status } = useSession()
 
     return (
         <OnBoardingLayout>
-            <SignUpForm />
+            {onboarding[index as keyof typeof onboarding]}
         </OnBoardingLayout>
     );
 };
