@@ -1,5 +1,4 @@
 import { z } from "zod";
-//import { Game } from "@prisma/client";
 import {
     createTRPCRouter,
     publicProcedure,
@@ -52,16 +51,4 @@ export const turfRouter = createTRPCRouter({
             }
         })
     }),
-
-    /**
-     * Get a particular game in a turf?? 
-     */
-    getOneTurfGame: publicProcedure.input(z.object({ gameId: z.string() })).query(({ ctx, input }) => {
-        return ctx.prisma.game.findUnique({
-            where: {
-                id: input.gameId
-            }
-        })
-    })
-
 });
