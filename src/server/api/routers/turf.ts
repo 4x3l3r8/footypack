@@ -15,7 +15,7 @@ export const turfRouter = createTRPCRouter({
         return "you can now see this secret message!";
     }),
 
-    getAll: publicProcedure.input(z.object({ stateId: z.number().optional(), cityId: z.number().optional() })).query(({ ctx, input }) => {
+    getAllTurfs: publicProcedure.input(z.object({ stateId: z.number().optional(), cityId: z.number().optional() })).query(({ ctx, input }) => {
         if (input.stateId){
             return ctx.prisma.turf.findMany({
                 where: {
@@ -31,5 +31,24 @@ export const turfRouter = createTRPCRouter({
         } else {
             return ctx.prisma.turf.findMany()
         }
+    }),
+
+    getOneTurf: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+        return ctx.prisma.turf.findUnique({
+            where: {
+                id: input.id
+            }
+        })
+    }),
+    
+    /**
+     * Get all the games in a turf
+     */
+    getTurfGames: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+        return ctx.prisma.game.findMany({
+            where: {
+                locationId: input.id
+            }
+        })
     }),
 });
