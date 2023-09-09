@@ -13,7 +13,7 @@ interface progressBtnProps {
 const SignUpProgress = ({ firstBtn, secondBtn, progressValue, onProceed }: progressBtnProps) => {
   return (
     <>
-      <div className="my-4">
+      <div className="my-4 bg-white">
         <Progress value={progressValue} className="mb-4 h-1" />
 
         <div className="my-4 flex justify-between">
@@ -23,7 +23,7 @@ const SignUpProgress = ({ firstBtn, secondBtn, progressValue, onProceed }: progr
           >
             {firstBtn}
           </Button>
-          <Button onClick={onProceed} className="rounded-none uppercase" type="button">{secondBtn}</Button>
+          <Button onClick={onProceed} className="rounded-none uppercase" type="submit">{secondBtn}</Button>
         </div>
 
         <p className="px-8 text-center  tracking-wide text-gray-500">

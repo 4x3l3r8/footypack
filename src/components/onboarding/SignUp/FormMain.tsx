@@ -43,11 +43,7 @@ const FormMain = () => {
   // }, [status]);
 
   // submit function
-  const updateUser = api.user.updateUser.useMutation({
-    onSuccess: () => {
-      return true;
-    },
-  });
+  
 
   return (
     <>
@@ -68,10 +64,7 @@ const FormMain = () => {
             enableReinitialize
             validationSchema={signUpValidation}
             onSubmit={(values, { setSubmitting }) => {
-              // setTimeout(() => {
-              //   alert(JSON.stringify(values, null, 2))
-              //   setSubmitting(false)
-              // }, 400)
+              
               updateUser.mutate({
                 firstname: values.firstName,
                 lastname: values.lastName,

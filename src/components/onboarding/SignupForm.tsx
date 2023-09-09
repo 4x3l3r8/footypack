@@ -4,13 +4,14 @@ import * as React from "react";
 
 import { Separator } from "../ui/separator";
 import FormMain from "./SignUp/FormMain";
-import { User } from "~/types";
+import type { User } from "~/types";
 
 export interface IAppProps {
   st?: null
 }
 
-export function SignUpForm(props: IAppProps) {
+export function SignUpForm() {
+
   return (
     <>
       <section className="w-11/12 md:w-10/12">
@@ -27,7 +28,7 @@ export function SignUpForm(props: IAppProps) {
           </div>
 
           <Separator />
-          <FormMain />
+    <FormMain />
         </div>
       </section>
     </>

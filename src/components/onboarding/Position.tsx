@@ -7,7 +7,6 @@ import {
   CardDescription,
 } from "../ui/card";
 import { Separator } from "../ui/separator";
-import { Checkbox } from "../ui/checkbox";
 import SignUpProgress from "./SignUp/SignUpProgress";
 import { useRouter } from "next/navigation";
 
