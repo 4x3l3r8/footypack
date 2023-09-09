@@ -43,11 +43,7 @@ const FormMain = () => {
   // }, [status]);
 
   // submit function
-  const updateUser = api.user.updateUser.useMutation({
-    onSuccess: () => {
-      return true;
-    },
-  });
+  
 
   return (
     <>
