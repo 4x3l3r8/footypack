@@ -1,28 +1,48 @@
+import { type Gender as GenderType } from "@prisma/client";
 import * as React from "react";
-import SignUpProgress from "./SignUp/SignUpProgress";
+import { type updateUserType } from "~/pages/onboarding/becomeaplayer";
 import { Separator } from "../ui/separator";
-import Gender from "./SignUp/BasicInfo/Gender";
 import AgeRange from "./SignUp/BasicInfo/AgeRange";
-import { useRouter } from "next/navigation";
-import { api, signUpValidation } from "~/utils/api";
+import Gender from "./SignUp/BasicInfo/Gender";
+import SignUpProgress from "./SignUp/SignUpProgress";
 
 export interface IAppProps {
-  st?: string;
+  continueToNextStep: () => void;
+  updateUser: updateUserType
 }
 
-export function BasicInformation(props: IAppProps) {
-  const router = useRouter();
-  
-  const updateUser = api.user.updateUser.useMutation({
-    onSuccess: () => {
-      return true;
-    },
-  });
+export type basicInfoType = {
+  gender: GenderType,
+  ageRange: string,
+  age: number
+}
 
+export function BasicInformation({ continueToNextStep, updateUser }: IAppProps) {
+  const [basicInformation, setBasicInformation] = React.useState<basicInfoType>({
+    gender: "MALE",
+    ageRange: "",
+    age: 0
+  })
+  const [can_proceed, setCanProceed] = React.useState(false)
+
+  const submitData = updateUser.useMutation({
+    onSuccess: (data) => {
+      if (data.status === "Ok") {
+        continueToNextStep()
+      }
+    }
+  })
+
+  React.useEffect(() => {
+    if (basicInformation.ageRange !== "" && basicInformation.gender) {
+      setCanProceed(true)
+    }
+  }, [basicInformation])
 
   const basicInfoFunction = () => {
-    updateUser.mutate({
-        
+    submitData.mutate({
+      userType: "PLAYER",
+      ...basicInformation
     })
   };
 
@@ -36,16 +56,18 @@ export function BasicInformation(props: IAppProps) {
           </div>
           <Separator />
 
-          <Gender />
+          <Gender updateParentState={setBasicInformation} />
 
-          <AgeRange />
+          <AgeRange updateParentState={setBasicInformation} />
 
           <div className="my-4">
             <h3 className="mb-2 text-xs font-semibold">
-              Special Age <span className="text-gray-500">(Optional)</span>
+              Actual Age <span className="text-gray-500">(Optional)</span>
             </h3>
             <input
+              onChange={(e) => setBasicInformation((prev) => ({ ...prev, age: Number(e.target.value) }))}
               type="text"
+              value={basicInformation.age.toString()}
               className="w-full border p-2 focus:outline-none"
             />
           </div>
@@ -53,7 +75,8 @@ export function BasicInformation(props: IAppProps) {
           <SignUpProgress
             firstBtn="back"
             secondBtn="next"
-            progressValue={66}
+            canProceed={can_proceed}
+            progressValue={3}
             onProceed={basicInfoFunction}
           />
         </div>

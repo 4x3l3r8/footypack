@@ -1,16 +1,15 @@
 import { getCsrfToken, getProviders, signIn } from "next-auth/react";
-import Image from "next/image";
 // import Header from "../../components/header";
 import type {
     GetServerSidePropsContext,
     InferGetServerSidePropsType,
 } from "next";
-import { getServerAuthSession } from "~/server/auth";
-import { NavBar } from "~/components/common";
-import { Card, CardContent, CardHeader } from "~/components/ui/card";
-import { Button } from "~/components/ui/button";
-import { Separator } from "~/components/ui/separator";
 import Link from "next/link";
+import { NavBar } from "~/components/common";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardHeader } from "~/components/ui/card";
+import { Separator } from "~/components/ui/separator";
+import { getServerAuthSession } from "~/server/auth";
 
 const Login = ({
     csrfToken,

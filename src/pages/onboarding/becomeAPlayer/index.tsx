@@ -1,63 +1,63 @@
-import { getCsrfToken, getProviders, useSession } from "next-auth/react";
-// import Header from "../../components/header";
 import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
+  GetServerSidePropsContext
 } from "next";
+import { getCsrfToken, getProviders } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import OnBoardingLayout from "~/components/layouts/OnboardingLayouts";
+import { BasicInformation } from "~/components/onboarding/BasicInformation";
+import Otp from "~/components/onboarding/Otp";
+import { PreferredPosition } from "~/components/onboarding/PreferredPosition";
 import { SignUpForm } from "~/components/onboarding/SignupForm";
 import { getServerAuthSession } from "~/server/auth";
-import Otp from "~/components/onboarding/Otp";
-import { BasicInformation } from "~/components/onboarding/BasicInformation";
-import { PreferredPosition } from "~/components/onboarding/PreferredPosition";
-import { useState } from "react";
-import SignUpProgress from "~/components/onboarding/SignUp/SignUpProgress";
-import { api, signUpValidation } from "~/utils/api";
-import { useSearchParams, useRouter } from "next/navigation";
-import type { User } from "~/types";
+import { api } from "~/utils/api";
 
-const BecomeAPlayer = ({
-  csrfToken,
-  providers,
-}: // session: SessionData
-InferGetServerSidePropsType<typeof getServerSideProps>) => {
+export type updateUserType = typeof api.user.createUser
+
+const BecomeAPlayer = () => {
   const [index, setIndex] = useState(1);
-  const [progressValue, setProgressValue] = useState(0);
+  const urlParams = useSearchParams();
 
-  const updateUser = api.user.updateUser.useMutation({
-    onSuccess: () => {
-      setProgressValue(progressValue+33)
+  const auth = urlParams.get("auth");
+
+
+  const updateUser = api.user.createUser
+
+  const continueToNext = () => {
+    // setProgressValue(progressValue + 33)
     if (index < 4) {
-      setIndex(index + 1);
+      setIndex((prev) => {
+        if (prev === 1) {
+          if (auth && auth !== "email") {
+            return 3
+          } else {
+            return 2
+          }
+        } else {
+          return (prev + 1)
+        }
+      });
     }
-    },
-  });
+  }
 
-
-  // get auth method for signup
-  const searchParams = useSearchParams();
-  const method = searchParams.get("auth");
 
   const onboarding = {
-    1: <SignUpForm />,
-    2: <Otp />,
-    3: <BasicInformation />,
-    4: <PreferredPosition />,
+    1: <SignUpForm continueToNextStep={continueToNext} updateUser={updateUser} />,
+    2: <Otp continueToNextStep={continueToNext} updateUser={updateUser} />,
+    3: <BasicInformation continueToNextStep={continueToNext} updateUser={updateUser} />,
+    4: <PreferredPosition continueToNextStep={continueToNext} updateUser={updateUser} />,
   };
-
-  // get session data
-  const { data: SessionData, status } = useSession();
 
   return (
     <OnBoardingLayout>
       {onboarding[index as keyof typeof onboarding]}
 
-      <SignUpProgress
+      {/* <SignUpProgress
         firstBtn="back"
         secondBtn="next"
         progressValue={progressValue}
-        onProceed={'ade'}
-      />
+        // onProceed={'ade'}
+      /> */}
     </OnBoardingLayout>
   );
 };
@@ -72,7 +72,7 @@ export const getServerSideProps = async (
   // To avoid an infinite loop!
   const session = await getServerAuthSession(context);
   if (session && session.user.userType) {
-    return { redirect: { destination: "/" } };
+    return { redirect: { destination: "/dashboard" } };
   }
 
   //   get list of configured providers

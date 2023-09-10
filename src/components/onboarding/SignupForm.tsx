@@ -2,15 +2,16 @@
 
 import * as React from "react";
 
+import { type updateUserType } from "~/pages/onboarding/becomeaplayer";
 import { Separator } from "../ui/separator";
 import FormMain from "./SignUp/FormMain";
-import type { User } from "~/types";
 
 export interface IAppProps {
-  st?: null
+  continueToNextStep: () => void;
+  updateUser: updateUserType
 }
 
-export function SignUpForm() {
+export const SignUpForm: React.FC<IAppProps> = ({ continueToNextStep, updateUser }) => {
 
   return (
     <>
@@ -28,7 +29,7 @@ export function SignUpForm() {
           </div>
 
           <Separator />
-    <FormMain />
+          <FormMain continueToNextStep={continueToNextStep} updateUser={updateUser} />
         </div>
       </section>
     </>

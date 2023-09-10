@@ -3,7 +3,7 @@
 
 generator client {
     provider        = "prisma-client-js"
-    previewFeatures = ["jsonProtocol"]
+    // previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
@@ -43,19 +43,6 @@ enum Ticket {
     FREE
 }
 
-// enum PlayerPositions {
-//     GOALKEEPER
-//     RIGHT_FULLBACK
-//     LEFT_FULLBACK
-//     CENTER_BACK
-//     ATTACKING_MIDFIELDER
-//     DEFENSIVE_MIDFIELDER
-//     RIGHT_MIDFIELDER
-//     LEFT_MIDFIELDER
-//     STRIKER
-//     LEFT_WINGER
-//     RIGHT_WINGER
-// }
 enum DayOfWeek {
     MONDAY
     TUESDAY
@@ -112,8 +99,8 @@ model Session {
 
 model User {
     id              String            @id @default(cuid())
-    username        String?            @unique
-    phoneNumber     String?            @db.VarChar(20)
+    username        String?           @unique
+    phoneNumber     String?           @db.VarChar(20)
     firstname       String?
     lastname        String?
     userType        UserType?
@@ -122,7 +109,7 @@ model User {
     password        String?
     emailVerified   DateTime?
     location        String?
-    image           String?                                                                                                                                                                                                                                                                                                                                                
+    image           String?
     playerId        String?           @unique
     turfManagerId   String?           @unique
     adminId         String?           @unique
@@ -168,7 +155,7 @@ model Player {
     Team                     Team?                     @relation(fields: [teamId], references: [id])
     teamId                   String?
     Turf_Transaction         Turf_Transaction[]
-    walletId                 String                    @unique
+    walletId                 String                    @unique @default(uuid())
     Player_Wallet            Player_Wallet?
 }
 

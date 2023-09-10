@@ -5,18 +5,19 @@ import React from 'react'
 interface turfHeaderProps {
   title: string;
   linkTo: string;
+  href: string
 }
 
-const TurfHeader = ({ title, linkTo }: turfHeaderProps) => {
+const TurfHeader = ({ title, linkTo, href }: turfHeaderProps) => {
   return (
     <>
-    <div className="flex items-center font-semibold justify-between p-4 border border-gray-300 bg-white">
-          <h1 className="font-bold uppercase">{title}</h1>
+      <div className="flex items-center font-semibold justify-between p-4 border border-gray-300 bg-white">
+        <h1 className="font-bold uppercase">{title}</h1>
 
-          <Link href={"#"} className="uppercase text-blue-700 underline flex">
-            {linkTo} <ArrowRight />
-          </Link>
-        </div>
+        <Link href={"/turfs"} className="uppercase text-blue-700 underline flex">
+          {linkTo} <ArrowRight />
+        </Link>
+      </div>
     </>
   )
 }

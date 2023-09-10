@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { type updateUserType } from "~/pages/onboarding/becomeaplayer";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "../ui/card";
 import { Separator } from "../ui/separator";
 import OtpInput from "./SignUp/OtpInput";
-import { useRouter } from "next/navigation";
 
-const Otp = () => {
-  const [otp, setOtp] = useState("");
+const Otp: React.FC<{ continueToNextStep: () => void; updateUser: updateUserType }> = ({ continueToNextStep }) => {
+  const [otp,] = useState("");
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(30);
-    const router = useRouter();
 
 
   useEffect(() => {
@@ -34,8 +33,7 @@ const Otp = () => {
     console.log("OTP entered:", otp); // You can perform any action with the OTP value
   };
   const handleSubmit = () => {
- 
-    router.push('/onboarding/becomeAPlayer/BasicInfo')
+    continueToNextStep()
 
     // Here you can perform actions with the submitted OTP, such as sending it to a server
     console.log("Submitted OTP:", otp);
@@ -57,14 +55,14 @@ const Otp = () => {
         </CardDescription>
       </CardHeader>
       <Separator />
-      <CardContent>
-        <div className="mt-4">
+      <CardContent className="flex flex-col items-center">
+        <div className="mt-4 flex flex-col items-center gap-1">
           <p className="mb-4 font-medium">Verification Code</p>
           <OtpInput length={5} onChange={handleOtpChange} />
           <button
             className="mt-4 rounded bg-[#006716] px-28 py-2 uppercase text-white hover:bg-[#006716] focus:outline-none"
             onClick={handleSubmit}
-            // disabled={otp.length !== 5}
+          // disabled={otp.length !== 5}
           >
             verify account
           </button>

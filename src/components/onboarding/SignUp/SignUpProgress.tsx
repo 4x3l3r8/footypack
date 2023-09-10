@@ -7,14 +7,15 @@ interface progressBtnProps {
   firstBtn: string;
   secondBtn: string;
   progressValue: number | null | undefined;
+  canProceed: boolean
   onProceed?: () => void
 }
 
-const SignUpProgress = ({ firstBtn, secondBtn, progressValue, onProceed }: progressBtnProps) => {
+const SignUpProgress = ({ firstBtn, secondBtn, progressValue, onProceed, canProceed = false }: progressBtnProps) => {
   return (
     <>
       <div className="my-4 bg-white">
-        <Progress value={progressValue} className="mb-4 h-1" />
+        <Progress max={4} value={progressValue} className="mb-4 h-1" />
 
         <div className="my-4 flex justify-between">
           <Button
@@ -23,7 +24,7 @@ const SignUpProgress = ({ firstBtn, secondBtn, progressValue, onProceed }: progr
           >
             {firstBtn}
           </Button>
-          <Button onClick={onProceed} className="rounded-none uppercase" type="submit">{secondBtn}</Button>
+          <Button disabled={!canProceed} onClick={onProceed} className="rounded-none uppercase" type="submit">{secondBtn}</Button>
         </div>
 
         <p className="px-8 text-center  tracking-wide text-gray-500">

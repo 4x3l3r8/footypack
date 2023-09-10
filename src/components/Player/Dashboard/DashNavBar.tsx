@@ -62,9 +62,8 @@ const DashNavBar = () => {
           />
         </Link>
         <nav
-          className={`absolute left-0 top-[62px] flex w-full flex-1 flex-col justify-between bg-slate-50 transition-all delay-300 md:static md:h-auto ${
-            isNavOpen ? "h-[300px] p-4" : "h-0"
-          }  overflow-hidden md:flex-row md:items-center`}
+          className={`absolute left-0 top-[62px] flex w-full flex-1 flex-col justify-between bg-slate-50 transition-all delay-300 md:static md:h-auto ${isNavOpen ? "h-[300px] p-4" : "h-0"
+            }  overflow-hidden md:flex-row md:items-center`}
         >
           <div className="flex flex-col gap-4 overflow-hidden md:flex-row">
             {navLinks.map((link, index) => {
@@ -74,10 +73,9 @@ const DashNavBar = () => {
                   href={link.href}
                   key={index}
                   className={`text-sm font-medium uppercase transition-colors hover:text-primary md:self-end md:text-left
-                    ${
-                      isActive
-                        ? "border-t-4 border-primary"
-                        : "text-muted-foreground"
+                    ${isActive
+                      ? "border-t-4 border-primary"
+                      : "text-muted-foreground"
                     }`}
                 >
                   {link.name}
@@ -94,8 +92,8 @@ const DashNavBar = () => {
             </div>
             <div className="relative flex w-full items-center">
               <Avatar className="mr-2 h-6 w-6">
-                <AvatarImage src="/images/maleAvatar.png" />
-                <AvatarFallback>IM</AvatarFallback>
+                <AvatarImage src={UserData?.user.image} />
+                <AvatarFallback>{UserData?.user.firstname.charAt(0)} {UserData?.user.lastname.charAt(0)}</AvatarFallback>
               </Avatar>
 
               <h1 className="mr-2 text-xs font-bold uppercase">

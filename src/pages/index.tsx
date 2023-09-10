@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
+import DashNavBar from "~/components/Player/Dashboard/DashNavBar";
 import { Footer, NavBar } from "~/components/common";
-import DashNavBar from "~/components/Player/Dashboard/DashNavBar"
 import {
   CTAJumbotron,
   FootyFacts,
@@ -13,7 +13,6 @@ import {
 } from "~/components/landingPage";
 import SearchBookPlay from "~/components/landingPage/SearchBookPlay";
 import TurfsNearby from "~/components/landingPage/TurfsNearby";
-import { api } from "~/utils/api";
 
 
 const Home: NextPage = () => {
@@ -38,34 +37,8 @@ const Home: NextPage = () => {
       <FootyFacts />
       <SearchBookPlay />
       <Footer />
-      {/* {turfs?.map((turf) => { return (<>{turf.name}</>)})} */}
     </>
   );
 };
 
 export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-  console.log("user", sessionData);
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-primary">
-        {sessionData && <span>Logged in as {sessionData.user?.firstname}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="bg-bluee-200/10 rounded-full px-10 py-3 font-semibold text-green-500 no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-};

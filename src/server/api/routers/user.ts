@@ -1,9 +1,9 @@
-import type { User, UserType } from "@prisma/client";
+import type { Gender, UserType } from "@prisma/client";
 import { z } from "zod";
 import {
     createTRPCRouter,
-    publicProcedure,
     protectedProcedure,
+    publicProcedure,
 } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
@@ -23,7 +23,7 @@ export const userRouter = createTRPCRouter({
         return "you can now see this secret message!";
     }),
 
-    updateUser: protectedProcedure
+    createUser: protectedProcedure
         .input(z.object({
             username: z.string(),
             phoneNumber: z.string(),
@@ -33,34 +33,97 @@ export const userRouter = createTRPCRouter({
             verified: z.boolean(),
             email: z.string(),
             password: z.string(),
-            emailVerified: z.date(),
             location: z.string(),
             image: z.string(),
-            playerId: z.string(),
-            turfManagerId: z.string(),
-            adminId: z.string(),
-            vendorId: z.string(),
+            age: z.number().optional(),
+            gender: z.custom<Gender>(),
+            ageRange: z.string(),
+            playerPositionId1: z.number(),
+            playerPositionId2: z.number(),
+            playerPositionId3: z.number(),
         }).partial())
         .mutation(async ({ ctx, input }) => {
-            // switch (input.userType) {
-            //     case "PLAYER":
-            //         const newPlayer = await ctx.prisma.player.create({
-            //             data: {
-            //                 userId: ctx.session.user.id
-            //             }
-            //         })
-            // }
-
-            const user = await ctx.prisma.user.update({
-                where: {
-                    id: ctx.session.user.id
-                },
-                data: {
-                    ...input,
+            try {
+                const userData = {
+                    username: input.username,
+                    phoneNumber: input.phoneNumber,
+                    firstname: input.firstname,
+                    lastname: input.lastname,
+                    userType: input.userType,
+                    verified: input.verified,
+                    email: input.email,
+                    password: input.password,
+                    location: input.location,
+                    image: input.image,
                 }
-            })
-            return {
-                status: "Ok"
+                await ctx.prisma.user.update({
+                    where: {
+                        id: ctx.session.user.id
+                    },
+                    data: {
+                        ...userData,
+                    }
+                })
+
+                switch (input.userType) {
+                    case "PLAYER":
+                        if (input.gender && input.ageRange) {
+                            const player = await ctx.prisma.player.upsert({
+                                where: {
+                                    userId: ctx.session.user.id
+                                },
+                                create: {
+                                    age: input.age,
+                                    gender: input.gender,
+                                    ageRangeId: input.ageRange,
+                                    userId: ctx.session.user.id,
+                                    playerPositionId1: input.playerPositionId1,
+                                    playerPositionId2: input.playerPositionId2,
+                                    playerPositionId3: input.playerPositionId3
+                                },
+                                update: {
+                                    age: input.age,
+                                    gender: input.gender,
+                                    ageRangeId: input.ageRange,
+                                    userId: ctx.session.user.id,
+                                    playerPositionId1: input.playerPositionId1,
+                                    playerPositionId2: input.playerPositionId2,
+                                    playerPositionId3: input.playerPositionId3
+                                }
+                            })
+                            await ctx.prisma.user.update({
+                                where: {
+                                    id: ctx.session.user.id
+                                },
+                                data: {
+                                    playerId: player.id,
+                                    player: {
+                                        connect: {
+                                            id: player.id
+                                        }
+                                    }
+                                },
+                            })
+                        } else {
+                            return {
+                                status: "Failed",
+                                message: "Fill in required inputs"
+                            }
+                        }
+                    default:
+
+                }
+
+                return {
+                    status: "Ok",
+                    message: "Account Created Successfully"
+                }
+            } catch (e) {
+                console.log("Error baam", e)
+                return {
+                    status: "Failed",
+                    message: e
+                }
             }
         })
 });
