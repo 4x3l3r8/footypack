@@ -8,7 +8,7 @@ interface turfHeaderProps {
   href: string
 }
 
-const TurfHeader = ({ title, linkTo, href }: turfHeaderProps) => {
+const TurfHeader = ({ title, linkTo }: turfHeaderProps) => {
   return (
     <>
       <div className="flex items-center font-semibold justify-between p-4 border border-gray-300 bg-white">

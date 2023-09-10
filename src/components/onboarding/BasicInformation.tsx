@@ -76,7 +76,7 @@ export function BasicInformation({ continueToNextStep, updateUser }: IAppProps) 
             firstBtn="back"
             secondBtn="next"
             canProceed={can_proceed}
-            progressValue={3}
+            progressValue={75}
             onProceed={basicInfoFunction}
           />
         </div>

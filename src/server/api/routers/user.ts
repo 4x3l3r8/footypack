@@ -41,6 +41,8 @@ export const userRouter = createTRPCRouter({
             playerPositionId1: z.number(),
             playerPositionId2: z.number(),
             playerPositionId3: z.number(),
+            turfName: z.string(),
+            turfDescription: z.string()
         }).partial())
         .mutation(async ({ ctx, input }) => {
             try {
@@ -110,6 +112,24 @@ export const userRouter = createTRPCRouter({
                                 message: "Fill in required inputs"
                             }
                         }
+
+                    case "TURF_OWNER":
+                        const turfManager = await ctx.prisma.turf_Manager.upsert({
+                            where: {
+                                userId: ctx.session.user.id
+                            },
+                            create: {
+                                userId: ctx.session.user.id
+                            },
+                            update: {
+                                turfs: {
+                                    create: {
+                                        name: input.turfName,
+                                        description: input.turfDescription
+                                    }
+                                }
+                            }
+                        })
                     default:
 
                 }

@@ -153,7 +153,7 @@ const FormMain: React.FC<{ continueToNextStep: () => void; updateUser: updateUse
               <SignUpProgress
                 firstBtn="Login Instead"
                 secondBtn="signup"
-                progressValue={33}
+                progressValue={25}
                 canProceed
                 onProceed={formik.handleSubmit}
               // onProceed={() => {
