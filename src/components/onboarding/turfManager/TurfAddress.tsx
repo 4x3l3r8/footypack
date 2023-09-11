@@ -63,9 +63,7 @@ export function TurfAddress({ continueToNextStep, updateUser, updateParentState 
     })
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        updateParentState("turfStreet", values.turfStreet);
-        updateParentState("turfCity", values.turfCity);
-        updateParentState("turfState", values.turfState);
+        updateParentState("turffive", values.five);
         continueToNextStep()
     }
 
