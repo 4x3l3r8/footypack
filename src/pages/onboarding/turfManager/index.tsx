@@ -5,11 +5,14 @@ import { getCsrfToken, getProviders } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import OnBoardingLayout from "~/components/layouts/OnboardingLayouts";
-import { BasicInformation } from "~/components/onboarding/BasicInformation";
-import Otp from "~/components/onboarding/Otp";
-import { PreferredPosition } from "~/components/onboarding/PreferredPosition";
 import { TurfAddress } from "~/components/onboarding/turfManager";
+import { TurfDays } from "~/components/onboarding/turfManager/TurfDays";
+import { TurfImage } from "~/components/onboarding/turfManager/TurfImage";
 import { TurfName } from "~/components/onboarding/turfManager/TurfName";
+import { TurfPrice } from "~/components/onboarding/turfManager/TurfPrice";
+import { TurfRoom } from "~/components/onboarding/turfManager/TurfRoom";
+import { TurfSelect } from "~/components/onboarding/turfManager/TurfSelect";
+
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
 
@@ -25,7 +28,7 @@ export interface IturfCreationDeets {
 }
 
 const TurfManager = () => {
-    const [index, setIndex] = useState(1);
+    const [index, setIndex] = useState(0);
 
     const [turfCreationDeets, setTurfCreationDeets] = useState<IturfCreationDeets>({
         turfName: "",
@@ -52,7 +55,7 @@ const TurfManager = () => {
 
     const continueToNext = () => {
         // setProgressValue(progressValue + 33)
-        if (index < 4) {
+        if (index < 8) {
             setIndex((prev) => (prev + 1))
         }
     }
@@ -62,6 +65,15 @@ const TurfManager = () => {
     const onboarding = {
         1: <TurfName continueToNextStep={continueToNext} updateUser={updateUser} updateParentState={updateCreationDeets} />,
         2: <TurfAddress continueToNextStep={continueToNext} updateUser={updateUser} updateParentState={updateCreationDeets} />,
+        3: <TurfSelect continueToNextStep={continueToNext} updateUser={updateUser} updateParentState={updateCreationDeets} />,
+        4: <TurfRoom continueToNextStep={continueToNext} updateUser={updateUser} updateParentState={updateCreationDeets} />,
+        5: <TurfImage continueToNextStep={continueToNext} updateUser={updateUser} updateParentState={updateCreationDeets} />,
+        6: <TurfDays continueToNextStep={continueToNext} updateUser={updateUser} updateParentState={updateCreationDeets} />,
+        0: <TurfPrice continueToNextStep={continueToNext} updateUser={updateUser} updateParentState={updateCreationDeets} />,
+
+
+
+
     };
 
     return (
