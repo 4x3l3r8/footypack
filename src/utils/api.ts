@@ -11,7 +11,6 @@ import superjson from "superjson";
 import { type AppRouter } from "~/server/api/root";
 import * as Yup from "yup";
 
-
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
@@ -70,30 +69,88 @@ export type RouterOutputs = inferRouterOutputs<AppRouter>;
 
 // Yup validation for sign up
 const phoneRegex = /^(?:\+?(?:[0-9] ?){6,14}[0-9])$/;
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+const passwordRegex = /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
 export const signUpValidation = Yup.object({
-    firstName: Yup.string()
-      .max(30, "Must be less than 30 characters")
-      .min(3, "Must be more than 3 characters")
-      .required("This can't be empty"),
-    lastName: Yup.string()
-      .max(30, "Must be 30 characters or less")
-      .required("This can't be empty"),
-    password: Yup.string()
-      .min(8, "Must be at least 8 characters")
-      .matches(
-        passwordRegex,
-        "Password must contain at least 8 characters, one uppercase letter, and one special character"
-      ),
-      // .required("This can't be empty"),
-    phoneNumber: Yup.string()
-      .matches(phoneRegex, "Invalid phone number")
-      .required("This can't be empty"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .matches(emailRegex, "Invalid email address")
-      .required("This can't be empty"),
-  })
+  firstName: Yup.string()
+    .max(30, "Must be less than 30 characters")
+    .min(3, "Must be more than 3 characters")
+    .required("This can't be empty"),
+  lastName: Yup.string()
+    .max(30, "Must be 30 characters or less")
+    .required("This can't be empty"),
+  password: Yup.string()
+    .min(8, "Must be at least 8 characters")
+    .matches(
+      passwordRegex,
+      "Password must contain at least 8 characters, one uppercase letter, and one special character"
+    ),
+  // .required("This can't be empty"),
+  phoneNumber: Yup.string()
+    .matches(phoneRegex, "Invalid phone number")
+    .required("This can't be empty"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .matches(emailRegex, "Invalid email address")
+    .required("This can't be empty"),
+});
 
+export const invoices = [
+  {
+    id: "#6772GH67",
+    itemName: "Men’s Soccer Boot (Blue & Yellow)",
+    assignedTo: "Damilola Ibrahim",
+    assignedBy: "Damilola Ibrahim",
+    dateCollected: "22-May-2023",
+    status: "returned",
+  },
+  {
+    id: "#6772GH67",
+    itemName: "Men’s Soccer Boot (Blue & Yellow)",
+    assignedTo: "Damilola Ibrahim",
+    assignedBy: "Damilola Ibrahim",
+    dateCollected: "22-May-2023",
+    status: "returned",
+  },
+  {
+    id: "#6772GH67",
+    itemName: "Men’s Soccer Boot (Blue & Yellow)",
+    assignedTo: "Damilola Ibrahim",
+    assignedBy: "Damilola Ibrahim",
+    dateCollected: "22-May-2023",
+    status: "not returned",
+  },
+  {
+    id: "#6772GH67",
+    itemName: "Men’s Soccer Boot (Blue & Yellow)",
+    assignedTo: "Damilola Ibrahim",
+    assignedBy: "Damilola Ibrahim",
+    dateCollected: "22-May-2023",
+    status: "not returned",
+  },
+  {
+    id: "#6772GH67",
+    itemName: "Men’s Soccer Boot (Blue & Yellow)",
+    assignedTo: "Damilola Ibrahim",
+    assignedBy: "Damilola Ibrahim",
+    dateCollected: "22-May-2023",
+    status: "returned",
+  },
+  {
+    id: "#6772GH67",
+    itemName: "Men’s Soccer Boot (Blue & Yellow)",
+    assignedTo: "Damilola Ibrahim",
+    assignedBy: "Damilola Ibrahim",
+    dateCollected: "22-May-2023",
+    status: "returned",
+  },
+  {
+    id: "#6772GH67",
+    itemName: "Men’s Soccer Boot (Blue & Yellow)",
+    assignedTo: "Damilola Ibrahim",
+    assignedBy: "Damilola Ibrahim",
+    dateCollected: "22-May-2023",
+    status: "not returned",
+  },
+];

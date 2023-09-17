@@ -10,23 +10,31 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const SideBar = () => {
+const SideBar = ({
+  setIndex,
+  index,
+}: {
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
+  index: number;
+}) => {
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
 
   const toggleInventory = () => {
     setInventoryOpen(!inventoryOpen);
-    setShopOpen(false)
+    setIndex(2)
+    setShopOpen(false);
   };
 
   const toggleShop = () => {
     setShopOpen(!shopOpen);
-    setInventoryOpen(false)
+    setIndex(5)
+    setInventoryOpen(false);
   };
   return (
     <>
       <div className="sticky top-0 max-h-screen basis-1/5 border-e bg-white ps-4">
-        <Link className="w-full sticky top-0 py-4 bg-white block" href={"/"}>
+        <Link className="sticky top-0 block w-full bg-white py-4" href={"/"}>
           <Image
             src={"/images/NavLogo.svg"}
             alt="FootyPack"
@@ -43,7 +51,8 @@ const SideBar = () => {
 
           <Link
             href={"#"}
-            className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-red-400 hover:bg-primary hover:text-white"
+            onClick={() => setIndex(1)}
+            className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index == 1 ? 'border-e-4 border-red-400 bg-primary text-white' : ''} `}
           >
             <LayoutDashboardIcon size={16} className="mr-4" />
             <span>dashboard</span>
@@ -52,7 +61,7 @@ const SideBar = () => {
           <Link
             href={"#"}
             onClick={toggleInventory}
-            className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-red-400 hover:bg-primary hover:text-white"
+            className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index ===2 || index===3 ? 'border-e-4 border-red-400 bg-primary text-white' : ''} `}
           >
             <FileText size={16} className="mr-4" />
             <span>inventory</span>
@@ -62,7 +71,8 @@ const SideBar = () => {
             <div className="ml-8 border-l">
               <Link
                 href={"#"}
-                className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-primary hover:text-primary"
+                onClick={() => setIndex(2)}
+                className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index === 2 ? 'border-e-4 border-primary text-primary' : ''}`}
               >
                 <FileText size={16} className="mr-4" />
                 <span>items</span>
@@ -70,7 +80,8 @@ const SideBar = () => {
 
               <Link
                 href={"#"}
-                className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-primary hover:text-primary"
+                onClick={() => setIndex(3)}
+                className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index === 3 ? 'border-e-4 border-primary text-primary' : ''}`}
               >
                 <FileText size={16} className="mr-4" />
                 <span>assigned items</span>
@@ -80,7 +91,8 @@ const SideBar = () => {
 
           <Link
             href={"#"}
-            className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-red-400 hover:bg-primary hover:text-white"
+            onClick={() => setIndex(4)}
+            className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index == 4 ? 'border-e-4 border-red-400 bg-primary text-white' : ''} `}
           >
             <Gamepad2 size={16} className="mr-4" />
             <span>my games</span>
@@ -89,7 +101,7 @@ const SideBar = () => {
           <Link
             href={"#"}
             onClick={toggleShop}
-            className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-red-400 hover:bg-primary hover:text-white"
+            className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index == 5 || index == 6 ? 'border-e-4 border-red-400 bg-primary text-white' : ''} `}
           >
             <ShoppingCart size={16} className="mr-4" />
             <span>shop</span>
@@ -99,7 +111,8 @@ const SideBar = () => {
             <div className="ml-8 border-l">
               <Link
                 href={"#"}
-                className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-primary hover:text-primary"
+                onClick={() => setIndex(5)}
+                className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index === 5 ? 'border-e-4 border-primary text-primary' : ''}`}
               >
                 <ShoppingCart size={16} className="mr-4" />
                 <span>Products</span>
@@ -107,7 +120,8 @@ const SideBar = () => {
 
               <Link
                 href={"#"}
-                className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-primary hover:text-primary"
+                onClick={() => setIndex(6)}
+                className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index === 6 ? 'border-e-4 border-primary text-primary' : ''}`}
               >
                 <FileText size={16} className="mr-4" />
                 <span>orders</span>
@@ -117,7 +131,7 @@ const SideBar = () => {
 
           <Link
             href={"#"}
-            className="my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 hover:border-e-4 hover:border-red-400 hover:bg-primary hover:text-white"
+            className={`my-2 flex w-full items-center p-4 text-sm font-bold uppercase text-gray-500 ${index == 7 ? 'border-e-4 border-red-400 bg-primary text-white' : ''} `}
           >
             <PieChart size={16} className="mr-4" />
             <span>transactions</span>
