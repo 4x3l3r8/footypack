@@ -14,7 +14,7 @@ const UpcomingEvents = () => {
         </Link>
       </div>
 
-      <div className="flex">
+      <div className="flex mb-12">
       <TurfEventCard />
       <TurfEventCard />
       <TurfEventCard />
