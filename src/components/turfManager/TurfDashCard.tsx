@@ -10,6 +10,7 @@ interface scheduleGameProps {
   stadiumName: string;
   eventTime: string;
   eventDate: string;
+  extraBasis: string;
 }
 
 const TurfDashCard = ({
@@ -19,9 +20,10 @@ const TurfDashCard = ({
   stadiumName,
   eventTime,
   eventDate,
+  extraBasis
 }: scheduleGameProps) => {
   return (
-    <div className="basis-full px-2 md:basis-1/3">
+    <div className={`basis-full px-2 ${extraBasis ? extraBasis : 'md:basis-1/3'}`}>
       <div className=" rounded bg-white h-full p-3 shadow-md transition-all delay-100 hover:scale-105">
         <h1 className="text-sm font-bold uppercase">
           {stadiumName}
