@@ -1,10 +1,14 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
-import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import NavGetting from "./NavGetting";
+import { AlignJustify } from "lucide-react";
+import { useState } from "react";
 
 const navLinks = [
   {
@@ -32,6 +36,12 @@ export function NavBar({
 
   const { data: sessionData } = useSession();
 
+  const [isNavOpen, setIsNavOpen] = useState(false)
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen)
+  }
+
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
     undefined, // no input
     { enabled: sessionData?.user !== undefined }
@@ -39,9 +49,8 @@ export function NavBar({
   return (
     <div
       className={cn(
-        `sticky top-0 z-50 flex h-16 w-full ${
-          pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"
-        } px-12 md:px-24`
+        `sticky top-0 justify-between items-center z-50 flex h-16 w-full ${pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"
+        } px-4 md:px-24`
       )}
       {...props}
     >
@@ -56,18 +65,19 @@ export function NavBar({
       </Link>
       <nav
         className={cn(
-          "flex items-center justify-center space-x-6 lg:space-x-9",
+          `flex items-center ml-6 md:space-x-6 space-x-2 ${pathname === "/" ? "bg-[#EEF5E5]" : "bg-white"} lg:space-x-9 absolute md:static flex-col md:flex-row top-[65px] space-y-6 p-4 overflow-hidden md:space-y-0 w-screen md:w-auto left-0 md:h-auto transition-all  ${!isNavOpen ? 'h-0 p-0' : 'h-[400px]'}`,
           className
         )}
         {...props}
       >
-        {navLinks.map((link) => {
+        {navLinks.map((link, index) => {
           const isActive = pathname?.startsWith(link.href);
           return (
             <Link
               href={link.href}
+              key={index}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
+                "text-sm text-left font-medium transition-colors hover:text-primary",
                 isActive ? "border-t-4 border-primary" : "text-muted-foreground"
               )}
             >
@@ -75,28 +85,13 @@ export function NavBar({
             </Link>
           );
         })}
+
+        <NavGetting extraStyle='md:hidden' />
       </nav>
-      <div className="ml-auto flex justify-center space-x-4 self-center align-middle">
-        {!sessionData ? (
-          <>
-            <Button
-              onClick={() => void signIn()}
-              variant={"outline"}
-              className="px-7"
-            >
-              Login
-            </Button>
-            <Button>Get Started</Button>
-          </>
-        ) : (
-          <div className="self-center">
-            Welcome {sessionData.user?.firstname} ,
-            <Button variant={"link"} onClick={() => void signOut()}>
-              Sign Out
-            </Button>
-          </div>
-        )}
-      </div>
+
+      <NavGetting extraStyle='hidden md:block' />
+
+      <AlignJustify className="md:hidden" size={24} onClick={toggleNav} />
     </div>
   );
 }

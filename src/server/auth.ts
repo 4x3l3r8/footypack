@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
-  type NextAuthOptions,
   type DefaultSession,
+  type NextAuthOptions,
 } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import type { User } from "~/types";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -17,13 +20,15 @@ import { prisma } from "~/server/db";
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    user: {
-      id: string;
-      firstname: string;
-      lastname: string;
-      // ...other properties
-      // role: UserRole;
-    } & DefaultSession["user"];
+    // user: {
+    //   id: string;
+    //   firstname: string;
+    //   lastname: string;
+    //   userType: UserType;
+    //   // ...other properties
+    //   // role: UserRole;
+    // } & DefaultSession["user"];
+    user: User & DefaultSession["user"]
   }
 
   // interface User {
@@ -47,11 +52,15 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    signIn: (params) => {
+      console.log(params);
+      return true
+    }
   },
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/auth/login",
-    newUser: "/onboarding",
+    // newUser: "/onboarding",
   },
   providers: [
     GoogleProvider({

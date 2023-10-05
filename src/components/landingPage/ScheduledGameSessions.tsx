@@ -27,7 +27,7 @@ export function ScheduledGameSessions(props: IScheduledGameSessionsProps) {
 
   return (
     <section className="mt-24 w-full items-center">
-      <div className="flex h-auto w-full justify-between  px-10">
+      <div className="flex h-auto w-full justify-between px-4 md:px-24">
         <span className="font-barlow text-4xl font-extrabold uppercase italic text-black">
           Join scheduled game <br /> sessions.
         </span>
@@ -59,7 +59,7 @@ export function ScheduledGameSessions(props: IScheduledGameSessionsProps) {
       </div>
 
       <div
-        className="no-scrollbar mt-5 flex space-x-5 overflow-x-auto px-10 py-8 transition"
+        className="no-scrollbar mt-5 flex space-x-5 overflow-x-auto px-4 md:px-24 py-8 transition"
         ref={sessionsBarRef}
       >
         <GameSessionCard className="shrink-0 shadow-lg" />

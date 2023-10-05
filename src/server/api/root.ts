@@ -1,5 +1,10 @@
 import { exampleRouter } from "~/server/api/routers/example";
 import { createTRPCRouter } from "~/server/api/trpc";
+import { turfRouter } from "./routers/turf";
+import { userRouter } from "./routers/user";
+import { utilRouter } from "./routers/utils";
+import { playerRouter } from "./routers/player";
+import { facilityRouter } from "./routers/facility";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +13,11 @@ import { createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
+  turf: turfRouter,
+  user: userRouter,
+  utils: utilRouter,
+  facility: facilityRouter,
+  player: playerRouter
 });
 
 // export type definition of API

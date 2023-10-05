@@ -25,11 +25,11 @@ export function GettingStarted(props: IGettingStartedProps) {
   const imgArray = [hiwField, hiwLegBall, hiwNet];
   return (
     <section className="my-24 w-full items-center">
-      <div className="flex h-auto w-full items-center justify-between px-10">
+      <div className="flex h-auto w-full items-center justify-between px-4 md:px-10">
         <span className="font-barlow text-4xl font-extrabold uppercase italic text-black">
-          How to get started on <br /> Footypack
+          How to get started on <span className="hidden md:inline-block"><br /></span> Footypack
         </span>
-        <Separator className="w-3/6" />
+        <Separator className="w-3/6 hidden md:block" />
       </div>
       <div className="mx-auto mt-8 flex w-5/6 justify-between font-barlow lg:space-x-24 lg:px-44">
         <Image           

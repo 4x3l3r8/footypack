@@ -18,7 +18,7 @@ const Turfs: NextPage = () => {
                 explore turfs
               </span>
               <span className="flex items-center space-x-1 text-sm text-muted-foreground">
-                Choose the turf you'll like to play on
+                Choose the turf you&apos;ll like to play on
               </span>
             </div>
 
