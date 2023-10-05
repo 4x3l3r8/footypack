@@ -1,6 +1,5 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { zodResolver } from "@hookform/resolvers/zod";
-import { City } from "@prisma/client";
-import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
@@ -12,66 +11,45 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
 
+import { Checkbox } from "~/components/ui/checkbox";
+import { Skeleton } from "~/components/ui/skeleton";
 import { type updateUserType } from "~/pages/onboarding/becomeaplayer";
 import { type IturfCreationDeets } from "~/pages/onboarding/turfmanager";
 import { api } from "~/utils/api";
 import SignUpProgress from "../SignUp/SignUpProgress";
-import { Checkbox } from "~/components/ui/checkbox";
 
 interface IAppProps {
   continueToNextStep: () => void;
-  updateUser: updateUserType;
+  
   updateParentState: (
     prop: keyof IturfCreationDeets,
-    value: string | number
+    value: string | number | number[]
   ) => void;
 }
 
-const formSchema = z.object({
-  turfStreet: z
-    .string()
-    .min(2, { message: "Name should have at least 2 characters" })
-    .max(255, { message: "Name is too long" }),
-  turfCity: z.number(),
-  turfState: z.number(),
-  turfZip: z.string().optional(),
-});
-
 export function TurfSelect({
   continueToNextStep,
-  updateUser,
   updateParentState,
 }: IAppProps) {
-  const [selectedStateId, setSelectedStateId] = React.useState(0);
-  const [filteredCities, setFilteredCities] = React.useState<City[]>();
 
-  const { data: statesWithCityList, isLoading } =
-    api.utils.getAllStates.useQuery({ includeCities: true });
+  const { data: pitchSizes, isLoading } = api.utils.getAllPitchSizes.useQuery();
+
+  const formSchema = z.object({
+    pitchSize: z.array(z.number()).refine((value) => value.some((item) => item), {
+      message: "You have to select at least one item.",
+    }),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      turfStreet: "",
-      turfCity: 1,
-      turfState: 1,
-      turfZip: "",
-    },
-  });
-
-  const mutationHandler = updateUser.useMutation({
-    onSuccess: (data) => {
-      if (data.status === "Ok") {
-        continueToNextStep();
-      }
+      pitchSize: []
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    updateParentState("turfStreet", values.turfStreet);
-    updateParentState("turfCity", values.turfCity);
-    updateParentState("turfState", values.turfState);
+    updateParentState("pitchSizes", values.pitchSize);
     continueToNextStep();
   };
 
@@ -86,136 +64,68 @@ export function TurfSelect({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="max-h-80 overflow-y-scroll">
-              <FormField
-                control={form.control}
-                name="five"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row mb-2 items-start space-x-3 space-y-0 rounded-md border p-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel className="font-bold uppercase">
-                        5-a-side
-                      </FormLabel>
-                      <FormDescription className="-ml-6">
-                        This pitch allow 5 players on each side, can accommodate
-                        a total of 10 players for a match
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="six"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row mb-2 items-start space-x-3 space-y-0 rounded-md border p-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel className="font-bold uppercase">
-                        6-a-side
-                      </FormLabel>
-                      <FormDescription className="-ml-6">
-                        This pitch allow 5 players on each side, can accommodate
-                        a total of 10 players for a match
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="seven"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row mb-2 items-start space-x-3 space-y-0 rounded-md border p-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel className="font-bold uppercase">
-                        7-a-side
-                      </FormLabel>
-                      <FormDescription className="-ml-6">
-                        This pitch allow 5 players on each side, can accommodate
-                        a total of 10 players for a match
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="eight"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row mb-2 items-start space-x-3 space-y-0 rounded-md border p-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel className="font-bold uppercase">
-                        8-a-side
-                      </FormLabel>
-                      <FormDescription className="-ml-6">
-                        This pitch allow 5 players on each side, can accommodate
-                        a total of 10 players for a match
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="eleven"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel className="font-bold uppercase">
-                        11-a-side
-                      </FormLabel>
-                      <FormDescription className="-ml-6">
-                        This pitch allow 5 players on each side, can accommodate
-                        a total of 10 players for a match
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                )}
-              />
+                {isLoading ?
+                  <Skeleton className="h-80 w-full" />
+                  :
+                  <FormField
+                    control={form.control}
+                    name="pitchSize"
+                    render={() => (
+                      <FormItem>
+                        {pitchSizes && pitchSizes?.map((pitchSize) => (
+                          <FormField
+                            key={pitchSize.id}
+                            control={form.control}
+                            name="pitchSize"
+                            render={({ field }) => {
+                              return (
+                                <FormItem
+                                  key={pitchSize.id}
+                                  className="flex flex-row mb-2 items-start space-x-3 space-y-0 rounded-md border p-4"
+                                >
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value?.includes(pitchSize.id)}
+                                      onCheckedChange={(checked) => {
+                                        return checked
+                                          ? field.onChange([...field.value, pitchSize.id])
+                                          : field.onChange(
+                                            field.value?.filter(
+                                              (value) => value !== pitchSize.id
+                                            )
+                                          )
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <div className="space-y-1 leading-none">
+                                    <FormLabel className="font-bold uppercase">
+                                      {pitchSize.name}
+                                    </FormLabel>
+                                    <FormDescription className="-ml-6">
+                                      {pitchSize.description}
+                                    </FormDescription>
+                                  </div>
+                                </FormItem>
+                              )
+                            }}
+                          />
+                        ))}
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                }
               </div>
 
               <SignUpProgress
                 firstBtn="Back"
                 secondBtn="Next"
-                progressValue={40}
+                progressValue={25}
                 canProceed={true}
                 onProceed={() => null}
-                // onProceed={() => {
-                //   continueToNextStep()
-                // }}
+              // onProceed={() => {
+              //   continueToNextStep()
+              // }}
               />
             </form>
           </Form>

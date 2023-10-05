@@ -1,78 +1,92 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { City } from "@prisma/client";
-import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
   Form,
-  FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 
-import { type updateUserType } from "~/pages/onboarding/becomeaplayer";
-import { type IturfCreationDeets } from "~/pages/onboarding/turfmanager";
-import { api } from "~/utils/api";
-import SignUpProgress from "../SignUp/SignUpProgress";
-import { Checkbox } from "~/components/ui/checkbox";
 import { ImagePlus } from "lucide-react";
+import { useDropzone } from "react-dropzone";
+import { type IturfCreationDeets } from "~/pages/onboarding/turfmanager";
+import { convertToBase64 } from "~/utils/helpers";
+import SignUpProgress from "../SignUp/SignUpProgress";
+import { ImgPreview } from "./ImgPreview";
 
 interface IAppProps {
   continueToNextStep: () => void;
-  updateUser: updateUserType;
   updateParentState: (
     prop: keyof IturfCreationDeets,
-    value: string | number
+    value?: any
   ) => void;
 }
 
+
+const MAX_FILE_SIZE = 5000000;
+
+
 const formSchema = z.object({
-  turfStreet: z
-    .string()
-    .min(2, { message: "Name should have at least 2 characters" })
-    .max(255, { message: "Name is too long" }),
-  turfCity: z.number(),
-  turfState: z.number(),
-  turfZip: z.string().optional(),
+  files: z.object({
+    name: z.string(),
+    size: z.number(),
+    base64Url: z.any()
+  }).array()
 });
 
 export function TurfImage({
   continueToNextStep,
-  updateUser,
   updateParentState,
 }: IAppProps) {
-  const [selectedStateId, setSelectedStateId] = React.useState(0);
-  const [filteredCities, setFilteredCities] = React.useState<City[]>();
 
-  const { data: statesWithCityList, isLoading } =
-    api.utils.getAllStates.useQuery({ includeCities: true });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      turfStreet: "",
-      turfCity: 1,
-      turfState: 1,
-      turfZip: "",
-    },
   });
 
-  const mutationHandler = updateUser.useMutation({
-    onSuccess: (data) => {
-      if (data.status === "Ok") {
-        continueToNextStep();
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptedFiles, rejectedFile) => {
+      form.clearErrors()
+
+      // Set the uploaded files to the form field
+      if (acceptedFiles.length > 0) {
+        let processedCount = 0;
+
+        const processedFiles: { name: string; size: number; base64Url?: any; }[] = []
+
+        for (const image of acceptedFiles) {
+          convertToBase64(image, (base64String) => {
+            if (base64String !== null) {
+              processedFiles.push({ name: image.name, size: image.size, base64Url: base64String });
+            }
+
+            // Check if all images have been processed
+            processedCount++;
+            if (processedCount === acceptedFiles.length) {
+              // All images have been processed, you can use 'processedFiles' here
+              form.setValue("files", processedFiles);
+            }
+          });
+        }
+      }
+
+      if (rejectedFile.length > 0) {
+        form.setError("files", { type: rejectedFile[0]?.errors[0]?.code, message: rejectedFile[0]?.errors[0]?.message });
       }
     },
+    accept: {
+      "image/*": [],
+    },
+    maxFiles: 5,
+    maxSize: MAX_FILE_SIZE
   });
 
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    updateParentState("turfStreet", values.turfStreet);
-    updateParentState("turfCity", values.turfCity);
-    updateParentState("turfState", values.turfState);
+    updateParentState("turfImages", values.files);
     continueToNextStep();
   };
 
@@ -86,29 +100,48 @@ export function TurfImage({
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="relative flex h-[500px] rounded-xl flex-col items-center justify-center border-2 border-dashed">
-                <ImagePlus size={50} className="mb-4 text-gray-500" />
-                <h1 className="mb-2 font-bold uppercase">
-                  drag images of your turfs here
-                </h1>
-                <p className="text-gray-500 capitalize">
-                  add at least 5 images of your turf here
-                </p>
+              <FormField
+                control={form.control}
+                name="files"
+                render={({ field, }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel {...getRootProps({ onClick: e => e.preventDefault() })} className={`relative flex ${acceptedFiles.length > 0 ? "h-[200px]" : "h-[500px]"} rounded-xl flex-col items-center justify-center border-2 border-dashed`}>
+                        {acceptedFiles.length > 0 ? <div className="flex gap-2 flex-wrap">
+                          {field?.value?.map((file, index) => {
+                            return (<ImgPreview file={file} key={index} />)
+                          })}
+                        </div> : <>
+                          <ImagePlus size={50} className="mb-4 text-gray-500" />
+                          <h1 className="mb-2 font-bold uppercase">
+                            drag images of your turfs here
+                          </h1>
+                          <p className="text-gray-500 capitalize">
+                            Add at least 5 images of your turf here
+                          </p>
+                        </>
+                        }
 
-                <div className="w-auto rounded-full max-w-sm items-center gap-1.5 absolute bottom-12">
-                  <Input type="file" multiple />
-                </div>
-              </div>
+                        <div className="w-auto rounded-full max-w-sm items-center gap-1.5 absolute bottom-12">
+                          <Input type="file" name="files" className={`${acceptedFiles.length > 0 ? "hidden" : "block"}`} {...getInputProps} multiple />
+                        </div>
+                      </FormLabel>
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+              {/* {acceptedFiles.map(file => file.name)} */}
 
               <SignUpProgress
                 firstBtn="Back"
                 secondBtn="Next"
                 progressValue={60}
-                canProceed={true}
+                canProceed={acceptedFiles.length > 0}
                 onProceed={() => null}
-                // onProceed={() => {
-                //   continueToNextStep()
-                // }}
+              // onProceed={() => {
+              //   continueToNextStep()
+              // }}
               />
             </form>
           </Form>

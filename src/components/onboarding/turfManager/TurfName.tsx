@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
@@ -13,13 +12,11 @@ import {
 import { Input } from "~/components/ui/input";
 import { Separator } from "~/components/ui/separator";
 import { Textarea } from "~/components/ui/textarea";
-import { type updateUserType } from "~/pages/onboarding/becomeaplayer";
 import { type IturfCreationDeets } from "~/pages/onboarding/turfmanager";
 import SignUpProgress from "../SignUp/SignUpProgress";
 
 export interface IAppProps {
     continueToNextStep: () => void;
-    updateUser: updateUserType;
     updateParentState: (prop: keyof IturfCreationDeets, value: string | number) => void
 }
 
@@ -28,7 +25,7 @@ const formSchema = z.object({
     description: z.string().max(500)
 })
 
-export function TurfName({ continueToNextStep, updateUser, updateParentState }: IAppProps) {
+export function TurfName({ continueToNextStep, updateParentState }: IAppProps) {
 
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -37,14 +34,6 @@ export function TurfName({ continueToNextStep, updateUser, updateParentState }: 
             name: "",
             description: ""
         },
-    })
-
-    const mutationHandler = updateUser.useMutation({
-        onSuccess: (data) => {
-            if (data.status === "Ok") {
-                continueToNextStep()
-            }
-        }
     })
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {

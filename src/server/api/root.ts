@@ -4,6 +4,7 @@ import { turfRouter } from "./routers/turf";
 import { userRouter } from "./routers/user";
 import { utilRouter } from "./routers/utils";
 import { playerRouter } from "./routers/player";
+import { facilityRouter } from "./routers/facility";
 
 /**
  * This is the primary router for your server.
@@ -15,7 +16,7 @@ export const appRouter = createTRPCRouter({
   turf: turfRouter,
   user: userRouter,
   utils: utilRouter,
-  
+  facility: facilityRouter,
   player: playerRouter
 });
 

@@ -1,4 +1,4 @@
-import type { Gender, UserType } from "@prisma/client";
+import type { DayOfWeek, GameTime, Gender, UserType } from "@prisma/client";
 import { z } from "zod";
 import {
     createTRPCRouter,
@@ -42,7 +42,19 @@ export const userRouter = createTRPCRouter({
             playerPositionId2: z.number(),
             playerPositionId3: z.number(),
             turfName: z.string(),
-            turfDescription: z.string()
+            turfDescription: z.string(),
+            turfLocation: z.string(),
+            turfCity: z.number(),
+            turfState: z.number(),
+            turfFacilites: z.number().array(),
+            turfPitches: z.number().array(),
+            turfGameDays: z.object({
+                day: z.custom<DayOfWeek>(),
+                stopTime: z.string(),
+                startTime: z.string(),
+            }).array(),
+            turfImage: z.string().array(),
+            turfPrice: z.string()
         }).partial())
         .mutation(async ({ ctx, input }) => {
             try {
@@ -112,25 +124,69 @@ export const userRouter = createTRPCRouter({
                                 message: "Fill in required inputs"
                             }
                         }
+                        break
 
                     case "TURF_OWNER":
-                        const turfManager = await ctx.prisma.turf_Manager.upsert({
-                            where: {
-                                userId: ctx.session.user.id
-                            },
-                            create: {
-                                userId: ctx.session.user.id
-                            },
-                            update: {
+                        const createdGameTimes = new Set<GameTime>()
+                        const turfManager = await ctx.prisma.turf_Manager.create({
+                            data: {
+                                userId: ctx.session.user.id,
                                 turfs: {
                                     create: {
-                                        name: input.turfName,
-                                        description: input.turfDescription
-                                    }
+                                        name: input.turfName as string,
+                                        description: input.turfDescription as string,
+                                        street: input.turfLocation as string,
+                                        cityId: input.turfCity as number,
+                                        stateId: input.turfState as number,
+                                        price: parseInt(input.turfPrice?.substring(3) as string).toLocaleString('en-NG', {
+                                            style: "currency",
+                                            currency: "NGN"
+                                        }),
+                                        State: {
+                                            connect: {
+                                                id: input.turfState
+                                            }
+                                        },
+                                        City:{
+                                            connect:{
+                                                id: input.turfCity
+                                            }
+                                        },
+                                        images: input.turfImage as string[],
+                                        pitchSizesId: input.turfPitches,
+                                        facilitiesId: input.turfFacilites,
+                                    },
                                 }
+                            },
+                            select: {
+                                turfs: true
                             }
                         })
+
+
+                        if (input.turfGameDays) {
+                            for (const gameTime of input.turfGameDays) {
+                                const gameTimes = await ctx.prisma.gameTime.create({
+                                    data: {
+                                        day: gameTime.day,
+                                        startTime: gameTime.startTime,
+                                        stoptTime: gameTime.stopTime,
+                                        turfId: turfManager.turfs[0]?.id,
+                                        Turf: {
+                                            connect: {
+                                                id: turfManager.turfs[0]?.id
+                                            }
+                                        }
+                                    },
+                                })
+                                if (gameTimes) {
+                                    createdGameTimes.add(gameTimes)
+                                }
+                            }
+                        }
+                        break
                     default:
+                        break
 
                 }
 

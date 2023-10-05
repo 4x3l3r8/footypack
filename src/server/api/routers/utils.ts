@@ -22,6 +22,10 @@ export const utilRouter = createTRPCRouter({
         return ctx.prisma.playPosition.findMany();
     }),
 
+    getAllPitchSizes: publicProcedure.query(({ ctx }) => {
+        return ctx.prisma.pitchSize.findMany();
+    }),
+
     /**
      * Get all states (get their LGAs by adding {includeCities:true} as the input)
      */

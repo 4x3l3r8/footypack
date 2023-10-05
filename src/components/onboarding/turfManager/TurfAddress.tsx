@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { zodResolver } from "@hookform/resolvers/zod";
-import { City } from "@prisma/client";
+import { type City } from "@prisma/client";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -27,7 +28,7 @@ import SignUpProgress from "../SignUp/SignUpProgress";
 
 interface IAppProps {
     continueToNextStep: () => void;
-    updateUser: updateUserType;
+    
     updateParentState: (prop: keyof IturfCreationDeets, value: string | number) => void
 }
 
@@ -38,7 +39,7 @@ const formSchema = z.object({
     turfZip: z.string().optional()
 })
 
-export function TurfAddress({ continueToNextStep, updateUser, updateParentState }: IAppProps) {
+export function TurfAddress({ continueToNextStep, updateParentState }: IAppProps) {
     const [selectedStateId, setSelectedStateId] = React.useState(0)
     const [filteredCities, setFilteredCities] = React.useState<City[]>()
 
@@ -54,16 +55,10 @@ export function TurfAddress({ continueToNextStep, updateUser, updateParentState 
         },
     })
 
-    const mutationHandler = updateUser.useMutation({
-        onSuccess: (data) => {
-            if (data.status === "Ok") {
-                continueToNextStep()
-            }
-        }
-    })
-
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        updateParentState("turffive", values.five);
+        updateParentState("turfStreet", values.turfStreet);
+        updateParentState("turfCity", values.turfCity);
+        updateParentState("turfState", values.turfState);
         continueToNextStep()
     }
 
